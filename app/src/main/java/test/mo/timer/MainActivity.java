@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -21,7 +22,13 @@ public class MainActivity extends AppCompatActivity {
 
         rv = findViewById(R.id.recyclerView);
         fab =findViewById(R.id.fab_Add);
+        Adapter adapter = new Adapter();
 
+
+        if(rv != null){
+            rv.setLayoutManager(new LinearLayoutManager(this));
+            rv.setAdapter(adapter);
+        }
 
         rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

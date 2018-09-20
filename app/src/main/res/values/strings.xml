@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">timer</string>
+    <string name="added_name">Added: </string>
+    <string name="expires_name">Expires: </string>
 </resources>

@@ -39,6 +39,9 @@ public class CreateFood extends AppCompatActivity {
                 public void onClick(View v) {
                     // TODO: save the expiryDate and foodName to database.
                     // TODO: once saved close current activity and reopen main DB.
+
+
+
                 }
             });
         }
@@ -52,7 +55,7 @@ public class CreateFood extends AppCompatActivity {
                     Calendar c = Calendar.getInstance();
                     c.set(year,month,dayOfMonth);
                     expiryDate = c.getTime();
-                    Toast.makeText(CreateFood.this, "clicked on date " + expiryDate, Toast.LENGTH_SHORT).show();
+
 
                 }
             });
