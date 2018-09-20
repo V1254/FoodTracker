@@ -1,5 +1,7 @@
 package test.mo.timer;
 
+import android.arch.persistence.room.Room;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,9 +22,11 @@ public class CreateFood extends AppCompatActivity {
     private static final String TAG = "CreateFood";
 
     private EditText foodName;
+    private Date currentDate;
     private Date expiryDate;
     private CalendarView calendarView;
     private Button saveButton;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-YYYY");
 
 
     @Override
@@ -33,12 +37,36 @@ public class CreateFood extends AppCompatActivity {
         // initialises components
         initC();
 
+        final foodDatabase db = Room.databaseBuilder(getApplicationContext(),foodDatabase.class,"foodDatabase")
+                .allowMainThreadQueries()
+                .build();
+
         if(saveButton != null){
             saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // TODO: save the expiryDate and foodName to database.
                     // TODO: once saved close current activity and reopen main DB.
+
+                    // get CurrentDate;
+                    // get ExpiryDate
+                    // Get foodName;
+
+                    String simplifiedStart = simpleDateFormat.format(currentDate);
+                    String simplifiedEnd = simpleDateFormat.format(expiryDate);
+                    String name = foodName.getText().toString();
+
+                    db.foodDao().insertAll(new Food(name,simplifiedStart,simplifiedEnd));
+                    startActivity(new Intent(CreateFood.this,MainActivity.class));
+
+
+
+
+
+                    // add to database.
+
+
+
 
 
 
@@ -68,26 +96,16 @@ public class CreateFood extends AppCompatActivity {
         foodName = (EditText) findViewById(R.id.food_name);
         calendarView = (CalendarView) findViewById(R.id.food_date);
         saveButton = findViewById(R.id.save);
+        currentDate = Calendar.getInstance().getTime();
 
-        // default expiry date is current Date;
-        expiryDate = new Date(calendarView.getDate());
-
-        Toast.makeText(this, "default date: " + expiryDate, Toast.LENGTH_SHORT).show();
-
+        // default expiry date is current Date until user selects a different day.
+        expiryDate = currentDate;
 
 
-//        testDate = calendarView.getDate();
 
-//        Date second = new Date(calendarView.getDate());
-//
-//
-//        // default value for expiry date is current date:
-//        Date date = Calendar.getInstance().getTime();
-//
-//        // format date
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-YYYY");
-//
-//        expiryDate = simpleDateFormat.format(date);
+
+
+
 
 
     }
