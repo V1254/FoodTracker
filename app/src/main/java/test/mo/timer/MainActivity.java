@@ -1,5 +1,6 @@
 package test.mo.timer;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,9 +24,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        // remove AllowMainThreadQueries and use background thread/ rxjava
+        foodDatabase db = Room.databaseBuilder(getApplicationContext(),foodDatabase.class,"foodDatabase")
+                            .allowMainThreadQueries()
+                            .build();
+
+
+       List<Food> foods = db.foodDao().getAllFoods();
+
+
+
         rv = findViewById(R.id.recyclerView);
         fab =findViewById(R.id.fab_Add);
-        Adapter adapter = new Adapter();
+        Adapter adapter = new Adapter(foods);
 
 
         if(rv != null){

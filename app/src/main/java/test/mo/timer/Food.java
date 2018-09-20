@@ -7,6 +7,8 @@ import android.arch.persistence.room.PrimaryKey;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+// Each row in the database
+
 @Entity
 public class Food {
 
@@ -22,15 +24,10 @@ public class Food {
     @ColumnInfo(name = "expiry_date")
     private String expiryDate;
 
-
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd,MM,YYYY");
-
-    // Simplify Date probably to a string.
-
-    public Food(String foodName, Date startDate, Date expiryDate) {
+    public Food(String foodName, String startDate, String expiryDate) {
         this.foodName = foodName;
-        this.startDate = simpleDateFormat.format(startDate);
-        this.expiryDate = simpleDateFormat.format(expiryDate);
+        this.startDate = startDate;
+        this.expiryDate = expiryDate;
     }
 
     public int getId() {
@@ -53,15 +50,15 @@ public class Food {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = simpleDateFormat.format(startDate);
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
     public String getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(Date expiryDate) {
-        this.expiryDate = simpleDateFormat.format(expiryDate);
+    public void setExpiryDate(String expiryDate) {
+        this.expiryDate = expiryDate;
     }
 }
