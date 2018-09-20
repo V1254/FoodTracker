@@ -1,14 +1,18 @@
 package test.mo.timer;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView rv;
     private FloatingActionButton fab;
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,15 @@ public class MainActivity extends AppCompatActivity {
                 } else if (dy > 0){
                     fab.hide();
                 }
+            }
+        });
+        
+        
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: pressed!");
+                startActivity(new Intent(MainActivity.this,CreateFood.class));
             }
         });
     }
