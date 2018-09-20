@@ -44,6 +44,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
         return foods.size();
     }
 
+    public void deleteFood(int adapterPosition) {
+        foods.remove(adapterPosition);
+        notifyItemRemoved(adapterPosition);
+
+    }
+
+
+
+    public Food getFoodAtPosition(int position){
+        return foods.get(position);
+
+    }
+
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 

@@ -1,12 +1,14 @@
 package test.mo.timer;
 
 import android.arch.persistence.room.Room;
+import android.content.ClipData;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 
@@ -18,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView rv;
     private FloatingActionButton fab;
     private static final String TAG = "MainActivity";
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +36,35 @@ public class MainActivity extends AppCompatActivity {
                             .build();
 
 
-       List<Food> foods = db.foodDao().getAllFoods();
+       final List<Food> foods = db.foodDao().getAllFoods();
 
 
 
         rv = findViewById(R.id.recyclerView);
         fab =findViewById(R.id.fab_Add);
-        Adapter adapter = new Adapter(foods);
+        final Adapter adapter = new Adapter(foods);
+
+
+        ItemTouchHelper helper = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                        int position = viewHolder.getAdapterPosition();
+                        Food myFood = adapter.getFoodAtPosition(position);
+                        foods.remove(myFood);
+                        adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+                    }
+                }
+        );
+
+        helper.attachToRecyclerView(rv);
+
+
 
 
         if(rv != null){
