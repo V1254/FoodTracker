@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // remove AllowMainThreadQueries and use background thread/ rxjava
-        foodDatabase db = Room.databaseBuilder(getApplicationContext(),foodDatabase.class,"foodDatabase")
+        final foodDatabase db = Room.databaseBuilder(getApplicationContext(),foodDatabase.class,"foodDatabase")
                             .allowMainThreadQueries()
                             .build();
 
@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                         Food myFood = adapter.getFoodAtPosition(position);
                         foods.remove(myFood);
                         adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+                        db.foodDao().deleteAll(myFood);
                     }
                 }
         );
