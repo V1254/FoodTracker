@@ -28,6 +28,9 @@ public class CreateFood extends AppCompatActivity {
     private Button saveButton;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-YYYY");
 
+    //TODO: hide keyboard when clicked outside of edit text or when enter is pressed.
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class CreateFood extends AppCompatActivity {
         // initialises components
         initC();
 
+
         final foodDatabase db = Room.databaseBuilder(getApplicationContext(),foodDatabase.class,"foodDatabase")
                 .allowMainThreadQueries()
                 .build();
@@ -45,9 +49,6 @@ public class CreateFood extends AppCompatActivity {
             saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO: save the expiryDate and foodName to database.
-                    // TODO: once saved close current activity and reopen main DB.
-
                     // get CurrentDate;
                     // get ExpiryDate
                     // Get foodName;
@@ -56,19 +57,16 @@ public class CreateFood extends AppCompatActivity {
                     String simplifiedEnd = simpleDateFormat.format(expiryDate);
                     String name = foodName.getText().toString();
 
+
+                    // check if name is empty and reject if it is
+                    if(name.isEmpty()){
+                        Toast.makeText(CreateFood.this, "Please Enter a name", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // at this point all values are non null so can safely add
                     db.foodDao().insertAll(new Food(name,simplifiedStart,simplifiedEnd));
                     startActivity(new Intent(CreateFood.this,MainActivity.class));
-
-
-
-
-
-                    // add to database.
-
-
-
-
-
 
                 }
             });
@@ -100,13 +98,6 @@ public class CreateFood extends AppCompatActivity {
 
         // default expiry date is current Date until user selects a different day.
         expiryDate = currentDate;
-
-
-
-
-
-
-
 
     }
 }

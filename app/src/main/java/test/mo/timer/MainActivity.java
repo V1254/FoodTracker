@@ -21,6 +21,11 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private static final String TAG = "MainActivity";
 
+    // TODO: add update functionality
+    // TODO: update the UI to show how many days/hours left until expiration Date.
+    // TODO: add a green orange red? color scheme maybe to distinguish whats expired etc.
+
+
 
 
 
