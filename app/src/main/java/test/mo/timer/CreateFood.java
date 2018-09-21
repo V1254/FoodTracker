@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
@@ -27,10 +28,6 @@ public class CreateFood extends AppCompatActivity {
     private CalendarView calendarView;
     private Button saveButton;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-YYYY");
-
-    //TODO: hide keyboard when clicked outside of edit text or when enter is pressed.
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +83,6 @@ public class CreateFood extends AppCompatActivity {
                 }
             });
         }
-
     }
 
 

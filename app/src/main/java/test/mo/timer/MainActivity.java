@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         fab =findViewById(R.id.fab_Add);
         final Adapter adapter = new Adapter(foods);
 
-
+        // handles swiping on the recycler view.
         ItemTouchHelper helper = new ItemTouchHelper(
                 new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
                     @Override

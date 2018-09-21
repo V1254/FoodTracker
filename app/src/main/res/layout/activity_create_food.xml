@@ -24,7 +24,12 @@
             android:id="@+id/food_name"
             android:hint="Food Name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLength="32"
+            android:imeOptions="actionDone"
+
+            />
 
     </android.support.design.widget.TextInputLayout>
 
