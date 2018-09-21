@@ -42,9 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
 
        final List<Food> foods = db.foodDao().getAllFoods();
-
-
-
+       
         rv = findViewById(R.id.recyclerView);
         fab =findViewById(R.id.fab_Add);
         final Adapter adapter = new Adapter(foods);
@@ -69,9 +67,6 @@ public class MainActivity extends AppCompatActivity {
         );
 
         helper.attachToRecyclerView(rv);
-
-
-
 
         if(rv != null){
             rv.setLayoutManager(new LinearLayoutManager(this));
