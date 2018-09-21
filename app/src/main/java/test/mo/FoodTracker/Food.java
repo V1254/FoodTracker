@@ -1,12 +1,9 @@
-package test.mo.timer;
+package test.mo.FoodTracker;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 // Each row in the database
 

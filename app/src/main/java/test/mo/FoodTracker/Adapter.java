@@ -1,6 +1,5 @@
-package test.mo.timer;
+package test.mo.FoodTracker;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -8,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -22,7 +19,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
     }
 
 
-    // following used to generate cardview for each data.
+    //  layout used for each food in the list
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -31,12 +28,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
 
     }
 
+    // sets the data for each field in the cardview.
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
         holder.food_Name.setText(foods.get(holder.getAdapterPosition()).getFoodName());
         holder.start_Date.setText(foods.get(holder.getAdapterPosition()).getStartDate());
         holder.expiration_Date.setText(foods.get(holder.getAdapterPosition()).getExpiryDate());
-
     }
 
     @Override
@@ -44,17 +41,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
         return foods.size();
     }
 
-    public void deleteFood(int adapterPosition) {
-        foods.remove(adapterPosition);
-        notifyItemRemoved(adapterPosition);
-
-    }
-
-
-
     public Food getFoodAtPosition(int position){
         return foods.get(position);
-
     }
 
 
@@ -73,9 +61,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
             start_Date = itemView.findViewById(R.id.date_added);
             expiration_Date = itemView.findViewById(R.id.expiration_date);
             cardView = itemView.findViewById(R.id.card_view);
-
-
-            //TODO: find each of the private fields above.
         }
     }
 

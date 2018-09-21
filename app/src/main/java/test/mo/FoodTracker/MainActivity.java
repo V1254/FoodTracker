@@ -1,7 +1,6 @@
-package test.mo.timer;
+package test.mo.FoodTracker;
 
 import android.arch.persistence.room.Room;
-import android.content.ClipData;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +11,6 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,20 +19,10 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private static final String TAG = "MainActivity";
 
-    // TODO: add update functionality
-    // TODO: update the UI to show how many days/hours left until expiration Date.
-    // TODO: add a green orange red? color scheme maybe to distinguish whats expired etc.
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         // remove AllowMainThreadQueries and use background thread/ rxjava
         final foodDatabase db = Room.databaseBuilder(getApplicationContext(),foodDatabase.class,"foodDatabase")
                             .allowMainThreadQueries()
@@ -42,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
 
        final List<Food> foods = db.foodDao().getAllFoods();
-       
+
         rv = findViewById(R.id.recyclerView);
         fab =findViewById(R.id.fab_Add);
         final Adapter adapter = new Adapter(foods);

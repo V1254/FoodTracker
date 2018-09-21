@@ -1,4 +1,4 @@
-package test.mo.timer;
+package test.mo.FoodTracker;
 
 import org.junit.Test;
 

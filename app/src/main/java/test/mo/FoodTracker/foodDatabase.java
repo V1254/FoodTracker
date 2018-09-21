@@ -1,7 +1,6 @@
-package test.mo.timer;
+package test.mo.FoodTracker;
 
 import android.arch.persistence.room.Database;
-import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.RoomDatabase;
 
 @Database(entities = {Food.class}, version = 1)

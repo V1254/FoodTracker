@@ -1,4 +1,4 @@
-package test.mo.timer;
+package test.mo.FoodTracker;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
@@ -15,7 +15,7 @@ public interface FoodDao {
     @Insert
     void insertAll(Food...foods);
 
-    @Query("SELECT * from Food")
+    @Query("SELECT * FROM Food")
     List<Food> getAllFoods();
 
     @Delete

@@ -1,4 +1,4 @@
-package test.mo.timer;
+package test.mo.FoodTracker;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
