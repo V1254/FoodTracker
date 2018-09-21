@@ -15,7 +15,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView rv;
+    private RecyclerView recyclerView;
     private FloatingActionButton fab;
     private static final String TAG = "MainActivity";
 
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
        final List<Food> foods = db.foodDao().getAllFoods();
 
-        rv = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
         fab =findViewById(R.id.fab_Add);
         final Adapter adapter = new Adapter(foods);
 
@@ -54,14 +54,14 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-        helper.attachToRecyclerView(rv);
+        helper.attachToRecyclerView(recyclerView);
 
-        if(rv != null){
-            rv.setLayoutManager(new LinearLayoutManager(this));
-            rv.setAdapter(adapter);
+        if(recyclerView != null){
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(adapter);
         }
 
-        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -71,8 +71,10 @@ public class MainActivity extends AppCompatActivity {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 
                 if(dy < 0){
+                    // scrolled up
                     fab.show();
                 } else if (dy > 0){
+                    // scrolled down
                     fab.hide();
                 }
             }
@@ -86,5 +88,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this,CreateFood.class));
             }
         });
+
     }
 }
