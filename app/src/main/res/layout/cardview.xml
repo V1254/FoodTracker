@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="75dp"
+    android:layout_height="70dp"
     android:layout_margin="5dp"
     app:cardCornerRadius="3dp"
     app:cardElevation="5dp"
@@ -12,31 +12,26 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        >
+        android:layout_height="match_parent"
+        android:padding="8dp">
 
 
         <TextView
             android:id="@+id/food_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Food Name"
             android:textColor="@android:color/background_dark"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="food_name" />
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/added_name"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -48,7 +43,6 @@
             android:id="@+id/date_added"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="2 Days Ago"
@@ -59,7 +53,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/expires_name"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -70,8 +63,6 @@
             android:id="@+id/expiration_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
             android:textColor="@android:color/black"
             android:textStyle="bold"
