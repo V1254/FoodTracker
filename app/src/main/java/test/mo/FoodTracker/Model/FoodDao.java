@@ -1,4 +1,4 @@
-package test.mo.FoodTracker;
+package test.mo.FoodTracker.Model;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;

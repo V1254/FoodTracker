@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import test.mo.FoodTracker.Model.Food;
+
 public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
 
     List<Food> foods;

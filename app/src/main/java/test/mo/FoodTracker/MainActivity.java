@@ -13,6 +13,9 @@ import android.view.View;
 
 import java.util.List;
 
+import test.mo.FoodTracker.Model.Food;
+import test.mo.FoodTracker.Model.FoodDatabase;
+
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;

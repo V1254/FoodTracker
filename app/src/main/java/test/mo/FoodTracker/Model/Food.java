@@ -1,4 +1,4 @@
-package test.mo.FoodTracker;
+package test.mo.FoodTracker.Model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;

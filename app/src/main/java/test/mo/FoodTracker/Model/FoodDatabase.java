@@ -1,4 +1,4 @@
-package test.mo.FoodTracker;
+package test.mo.FoodTracker.Model;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;

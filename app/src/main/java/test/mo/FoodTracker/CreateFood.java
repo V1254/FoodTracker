@@ -15,6 +15,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import test.mo.FoodTracker.Model.Food;
+import test.mo.FoodTracker.Model.FoodDatabase;
+
 public class CreateFood extends AppCompatActivity {
 
     private static final String TAG = "CreateFood";
