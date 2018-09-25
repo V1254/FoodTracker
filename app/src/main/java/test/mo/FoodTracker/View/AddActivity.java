@@ -49,7 +49,7 @@ public class AddActivity extends AppCompatActivity {
 
         // default expiry date
         expiryDate = todaysDate;
-        
+
         addFoodViewModel = ViewModelProviders.of(this).get(AddFoodViewModel.class);
     }
 

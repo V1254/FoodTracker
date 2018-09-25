@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
 import java.text.SimpleDateFormat;
@@ -19,6 +20,7 @@ import test.mo.FoodTracker.Adapter;
 import test.mo.FoodTracker.DateConverter;
 import test.mo.FoodTracker.Model.Food;
 import test.mo.FoodTracker.R;
+import test.mo.FoodTracker.ViewModel.DeleteViewModel;
 import test.mo.FoodTracker.ViewModel.FoodListViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
      FloatingActionButton fab;
      DateConverter dateConverter;
      FoodListViewModel foodListViewModel;
+     DeleteViewModel deleteViewModel;
 
     private static final String TAG = "MainActivity";
 
@@ -57,40 +60,10 @@ public class MainActivity extends AppCompatActivity {
         // listener to create new foods
         setFoodCreateListener(fab);
 
-
-
-        // handles swiping on the recycler view.
-//        ItemTouchHelper helper = new ItemTouchHelper(
-//                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
-//                    @Override
-//                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-//                        return false;
-//                    }
-//
-//                    @Override
-//                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-//                        int position = viewHolder.getAdapterPosition();
-//                        Food myFood = adapter.getFoodAtPosition(position);
-//                        foods.remove(myFood);
-//                        adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-//                        db.foodDao().deleteAll(myFood);
-//                    }
-//                }
-//        );
-
-//        helper.attachToRecyclerView(recyclerView);
-
-
-
-
-
-        
-        
-
+        // swipe to delete function on recyclerview
+        setDeleteListener(recyclerView);
 
     }
-
-
 
     private void initComponents(){
         recyclerView = findViewById(R.id.recyclerView);
@@ -98,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         dateConverter =  new DateConverter(new SimpleDateFormat("dd-MM-YYYY"));
         adapter = new Adapter(new ArrayList<Food>(),dateConverter);
         foodListViewModel = ViewModelProviders.of(this).get(FoodListViewModel.class);
+        deleteViewModel = ViewModelProviders.of(this).get(DeleteViewModel.class);
 
     }
 
@@ -129,5 +103,24 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, AddActivity.class));
             }
         });
+    }
+
+    private void setDeleteListener(RecyclerView recyclerView){
+        ItemTouchHelper helper = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                        int position = viewHolder.getAdapterPosition();
+                        Food myFood = adapter.getFoodAtPosition(position);
+                        deleteViewModel.deleteFood(myFood);
+                    }
+                }
+        );
+        helper.attachToRecyclerView(recyclerView);
     }
 }
