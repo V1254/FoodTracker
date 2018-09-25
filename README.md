@@ -21,6 +21,6 @@ Simple Food Tracker using room database
 
 ## TODO
 
-- [ ] Food update function when cards are clicked
-- [ ] material design
+- [X] Food update function when cards are clicked
+- [ ] color scheme / ui.
 - [ ] Color system for the cards. Green = Fresh, Amber = Edible , Red = Expired
