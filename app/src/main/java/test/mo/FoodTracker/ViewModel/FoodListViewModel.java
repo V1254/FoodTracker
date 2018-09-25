@@ -25,6 +25,6 @@ public class FoodListViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Food>> getFoodList() {
-        return foodList;
+        return this.foodList;
     }
 }

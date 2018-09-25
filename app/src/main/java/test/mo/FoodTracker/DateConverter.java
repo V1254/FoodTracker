@@ -18,7 +18,7 @@ public class DateConverter {
     public Long convertToLong(String string_date){
         Long to_return = 0L;
         try{
-            to_return = simpleDateFormat.parse(string_date).getTime();
+            to_return = this.simpleDateFormat.parse(string_date).getTime();
         } catch (ParseException pe){
             Log.e(TAG, "convertToLong: missing date / wrong simpledateformart");
             pe.printStackTrace();

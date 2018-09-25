@@ -41,15 +41,19 @@ public class AddActivity extends AppCompatActivity {
         setListener(floatingActionButton);
     }
 
-    void initComponents(){
+    private void initComponents(){
         editText = findViewById(R.id.food_name);
         calendarView = findViewById(R.id.expiry_date);
         floatingActionButton = findViewById(R.id.save_food);
         todaysDate = Calendar.getInstance().getTimeInMillis();
+
+        // default expiry date
+        expiryDate = todaysDate;
+        
         addFoodViewModel = ViewModelProviders.of(this).get(AddFoodViewModel.class);
     }
 
-    void setListener(CalendarView calendarView){
+    private void setListener(CalendarView calendarView){
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
@@ -60,15 +64,13 @@ public class AddActivity extends AppCompatActivity {
         });
     }
 
-    void setListener(FloatingActionButton floatingActionButton){
+    private void setListener(FloatingActionButton floatingActionButton){
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // make sure editText/ expiryDate not null
                 if(editText.getText().toString().isEmpty()){
                     Toast.makeText(AddActivity.this, "Missing Name!", Toast.LENGTH_SHORT).show();
-                } else if(expiryDate == null){
-                    expiryDate = Calendar.getInstance().getTimeInMillis();
                 } else {
                     addFoodViewModel.addFood(new Food(
                         editText.getText().toString(),

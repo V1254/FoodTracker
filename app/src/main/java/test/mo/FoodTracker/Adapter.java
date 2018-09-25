@@ -43,7 +43,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
         holder.start_Date.setText(dateConverter.convertToStringDate(dateAdded));
 
         Long expiryDate = foods.get(holder.getAdapterPosition()).getExpiryDate();
-        holder.expiration_Date.setText(dateConverter.convertToStringDate(dateAdded));
+        holder.expiration_Date.setText(dateConverter.convertToStringDate(expiryDate));
     }
 
     @Override

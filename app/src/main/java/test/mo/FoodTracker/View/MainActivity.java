@@ -95,13 +95,13 @@ public class MainActivity extends AppCompatActivity {
     private void initComponents(){
         recyclerView = findViewById(R.id.recyclerView);
         fab =findViewById(R.id.fab_Add);
-        dateConverter =  new DateConverter(new SimpleDateFormat("dd-mm-yyyy"));
+        dateConverter =  new DateConverter(new SimpleDateFormat("dd-MM-YYYY"));
         adapter = new Adapter(new ArrayList<Food>(),dateConverter);
         foodListViewModel = ViewModelProviders.of(this).get(FoodListViewModel.class);
 
     }
 
-   private void setScrollListener(RecyclerView recyclerView){
+    private void setScrollListener(RecyclerView recyclerView){
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {

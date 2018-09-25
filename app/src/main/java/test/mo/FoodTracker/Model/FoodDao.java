@@ -9,12 +9,14 @@ import android.arch.persistence.room.Update;
 
 import java.util.List;
 
+import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
+
 // Used to access the data from the database.
 
 @Dao
 public interface FoodDao {
 
-    @Insert
+    @Insert(onConflict = REPLACE)
     void insertAll(Food...foods);
 
     @Query("SELECT * FROM Food")

@@ -30,11 +30,13 @@ public class UpdateActivity extends AppCompatActivity{
         setContentView(R.layout.activity_update);
 
         // initialise components
-        initComponenets();
+        initComponents();
 
         // check if intents are available
         if(allIntentsAvailable()){
             // TODO: set the view values with incoming intent information.
+            editText.setText(getIntent().getStringExtra("name"));
+            calendarView.setDate(getIntent().getLongExtra("expiry",0L));
         }else{
             finish();
         }
@@ -69,7 +71,7 @@ public class UpdateActivity extends AppCompatActivity{
 
     }
 
-    private void initComponenets(){
+    private void initComponents(){
         editText = findViewById(R.id.update_editText);
         calendarView = findViewById(R.id.update_calender);
         saveChangesButton = findViewById(R.id.update_fab);
