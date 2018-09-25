@@ -5,6 +5,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
+// TODO: define exportSchema
 @Database(entities = {Food.class}, version = 1)
 public abstract class FoodDatabase extends RoomDatabase {
     // the interface that can access the database.

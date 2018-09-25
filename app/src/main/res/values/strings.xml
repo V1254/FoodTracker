@@ -3,4 +3,6 @@
     <string name="added_name">Added: </string>
     <string name="expires_name">Expires: </string>
     <string name="title_activity_update_food">UpdateFood</string>
+    <string name="update_hint">Replace Name</string>
+    <string name="datePicker_string">Update Expiry</string>
 </resources>
