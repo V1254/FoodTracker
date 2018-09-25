@@ -18,7 +18,7 @@ import java.util.Calendar;
 import test.mo.FoodTracker.Model.Food;
 import test.mo.FoodTracker.ViewModel.UpdateFoodViewModel;
 
-public class UpdateActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+public class UpdateActivity extends AppCompatActivity{
 
      EditText editText;
      CalendarView calendarView;
@@ -96,8 +96,5 @@ public class UpdateActivity extends AppCompatActivity implements DatePickerDialo
         });
     }
 
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-    }
 }
