@@ -1,5 +1,6 @@
 package test.mo.FoodTracker;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -8,16 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Date;
 import java.util.List;
 
 import test.mo.FoodTracker.Model.Food;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
 
-    List<Food> foods;
+    private List<Food> foods;
+    private DateConverter dateConverter;
 
-    public Adapter(List<Food> foods) {
+    public Adapter(List<Food> foods, DateConverter dateConverter) {
         this.foods = foods;
+        this.dateConverter = dateConverter;
     }
 
 
@@ -30,12 +34,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
 
     }
 
-    // sets the data for each field in the cardview.
+    // binds data to the cards in the recyclerview.
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
         holder.food_Name.setText(foods.get(holder.getAdapterPosition()).getFoodName());
-        holder.start_Date.setText(foods.get(holder.getAdapterPosition()).getStartDate());
-        holder.expiration_Date.setText(foods.get(holder.getAdapterPosition()).getExpiryDate());
+
+        Long dateAdded = foods.get(holder.getAdapterPosition()).getStartDate();
+        holder.start_Date.setText(dateConverter.convertToStringDate(dateAdded));
+
+        Long expiryDate = foods.get(holder.getAdapterPosition()).getExpiryDate();
+        holder.expiration_Date.setText(dateConverter.convertToStringDate(dateAdded));
     }
 
     @Override
@@ -47,22 +55,38 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
         return foods.get(position);
     }
 
+    public void addItems(List<Food> foodList){
+        this.foods = foodList;
+        notifyDataSetChanged();
+    }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    // non static to allow access to enclosing fields/methods
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView food_Name;
         TextView start_Date;
         TextView expiration_Date;
         CardView cardView;
 
-
         public MyViewHolder(View itemView) {
             super(itemView);
-
+            itemView.setOnClickListener(this);
             food_Name = itemView.findViewById(R.id.food_name);
             start_Date = itemView.findViewById(R.id.date_added);
             expiration_Date = itemView.findViewById(R.id.expiration_date);
             cardView = itemView.findViewById(R.id.card_view);
+        }
+
+
+        @Override
+        public void onClick(View v) {
+            Food food = getFoodAtPosition(getAdapterPosition());
+            Intent intent = new Intent(v.getContext(), UpdateActivity.class);
+            intent.putExtra("id",food.getId());
+            intent.putExtra("name",food.getFoodName());
+            intent.putExtra("added",food.getStartDate());
+            intent.putExtra("expiry",food.getExpiryDate());
+            v.getContext().startActivity(intent);
         }
     }
 
