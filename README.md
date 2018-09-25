@@ -1,5 +1,5 @@
 # FoodTracker
-Simple Food Tracker using room database
+An App that Tracks food expiration dates using MVVM architecture.
 
 
 ## Prerequisites
