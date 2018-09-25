@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // remove AllowMainThreadQueries and use background thread/ rxjava
-        final foodDatabase db = Room.databaseBuilder(getApplicationContext(),foodDatabase.class,"foodDatabase")
+        final FoodDatabase db = Room.databaseBuilder(getApplicationContext(),FoodDatabase.class,"FoodDatabase")
                             .allowMainThreadQueries()
                             .build();
 

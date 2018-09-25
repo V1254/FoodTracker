@@ -55,7 +55,7 @@ public class CreateFood extends AppCompatActivity {
     }
 
     void setButtonListener(@NonNull Button button){
-        final foodDatabase db = Room.databaseBuilder(getApplicationContext(),foodDatabase.class,"foodDatabase")
+        final FoodDatabase db = Room.databaseBuilder(getApplicationContext(),FoodDatabase.class,"FoodDatabase")
                 .allowMainThreadQueries()
                 .build();
         button.setOnClickListener(new View.OnClickListener() {
