@@ -1,4 +1,4 @@
-package test.mo.FoodTracker;
+package test.mo.FoodTracker.View;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.NonNull;
@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 import test.mo.FoodTracker.Model.Food;
+import test.mo.FoodTracker.R;
 import test.mo.FoodTracker.ViewModel.AddFoodViewModel;
 
 public class AddActivity extends AppCompatActivity {

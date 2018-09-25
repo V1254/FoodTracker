@@ -1,21 +1,19 @@
-package test.mo.FoodTracker;
+package test.mo.FoodTracker.View;
 
-import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
 import test.mo.FoodTracker.Model.Food;
+import test.mo.FoodTracker.R;
 import test.mo.FoodTracker.ViewModel.UpdateFoodViewModel;
 
 public class UpdateActivity extends AppCompatActivity{

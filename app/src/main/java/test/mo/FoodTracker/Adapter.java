@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Date;
 import java.util.List;
 
 import test.mo.FoodTracker.Model.Food;
+import test.mo.FoodTracker.View.UpdateActivity;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
 

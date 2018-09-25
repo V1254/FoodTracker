@@ -17,8 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateFood" />
-        <activity android:name=".UpdateActivity" />
-        <activity android:name=".AddActivity"></activity>
+        <activity android:name=".View.UpdateActivity" />
+        <activity android:name=".View.AddActivity"></activity>
     </application>
 
 </manifest>
