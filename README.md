@@ -24,3 +24,4 @@ An App that Tracks food expiration dates using MVVM architecture.
 - [X] Food update function when cards are clicked
 - [ ] color scheme / ui.
 - [ ] Color system for the cards. Green = Fresh, Amber = Edible , Red = Expired
+- [ ] add landscape support or remove calenderview and use datepicker.
