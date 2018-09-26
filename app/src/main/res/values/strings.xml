@@ -5,4 +5,5 @@
     <string name="title_activity_update_food">UpdateFood</string>
     <string name="update_hint">Replace Name</string>
     <string name="datePicker_string">Update Expiry</string>
+    <string name="expired">Expired!</string>
 </resources>

@@ -42,18 +42,21 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
         holder.food_Name.setText(foods.get(holder.getAdapterPosition()).getFoodName());
 
         Long dateAdded = foods.get(holder.getAdapterPosition()).getStartDate();
-        holder.start_Date.setText(dateConverter.convertToStringDate(dateAdded));
+        holder.start_Date.setText(dateConverter.getAddedString(dateAdded));
 
         Long expiryDate = foods.get(holder.getAdapterPosition()).getExpiryDate();
-        holder.expiration_Date.setText(dateConverter.convertToStringDate(expiryDate));
+        String toDisplay = dateConverter.getExpiryString(expiryDate);
+        holder.expiration_Date.setText(toDisplay);
 
-        if(dateConverter.getDaysTo(expiryDate) <= 0){
+        if(toDisplay.equals("Expired!!") || toDisplay.equals("Today") || toDisplay.equals("Tomorrow")){
+            holder.expiration_Date.setTextColor(Color.RED);
             holder.expiryColor.setBackgroundColor(Color.RED);
-        } else if (dateConverter.getDaysTo(expiryDate) <= 3){
-            holder.expiryColor.setBackgroundColor(Color.YELLOW);
-        } else{
+        } else {
+            holder.expiration_Date.setTextColor(Color.GREEN);
             holder.expiryColor.setBackgroundColor(Color.GREEN);
         }
+
+
     }
 
     @Override
