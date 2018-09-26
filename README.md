@@ -17,7 +17,7 @@ An App that Tracks food expiration dates using MVVM architecture.
 
 
 ## App in Action
-![Gif of the App](https://i.imgur.com/uuA3sGG.gif)
+![Gif of the App](https://i.imgur.com/6e8ALP7.gif)
 
 ## TODO
 
