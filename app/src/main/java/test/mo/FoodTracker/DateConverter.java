@@ -73,8 +73,6 @@ public class DateConverter {
         return (int) (TimeUnit.MILLISECONDS.toDays(date) - TimeUnit.MILLISECONDS.toDays(currentDate.getTime()));
     }
 
-
-
     private boolean isWeekLeft(long dateInLong){
         Long diff = TimeUnit.MILLISECONDS.toDays(dateInLong) - TimeUnit.MILLISECONDS.toDays(currentDate.getTime());
         return diff >= 0&& diff <= 7 ;
