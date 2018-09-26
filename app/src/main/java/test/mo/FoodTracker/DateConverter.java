@@ -4,7 +4,9 @@ import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class DateConverter {
     private static final String TAG = "DateConverter";
@@ -37,5 +39,11 @@ public class DateConverter {
 
     public void setSimpleDateFormat(SimpleDateFormat simpleDateFormat) {
         this.simpleDateFormat = simpleDateFormat;
+    }
+
+    public long getDaysTo(long date){
+        // get the difference
+        long diff = date - Calendar.getInstance().getTimeInMillis();
+        return TimeUnit.MILLISECONDS.toDays(diff);
     }
 }

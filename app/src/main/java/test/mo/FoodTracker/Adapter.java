@@ -1,12 +1,14 @@
 package test.mo.FoodTracker;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -44,6 +46,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
 
         Long expiryDate = foods.get(holder.getAdapterPosition()).getExpiryDate();
         holder.expiration_Date.setText(dateConverter.convertToStringDate(expiryDate));
+
+        if(dateConverter.getDaysTo(expiryDate) <= 0){
+            holder.expiryColor.setBackgroundColor(Color.RED);
+        } else if (dateConverter.getDaysTo(expiryDate) <= 3){
+            holder.expiryColor.setBackgroundColor(Color.YELLOW);
+        } else{
+            holder.expiryColor.setBackgroundColor(Color.GREEN);
+        }
     }
 
     @Override
@@ -67,6 +77,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
         TextView start_Date;
         TextView expiration_Date;
         CardView cardView;
+        ImageView expiryColor;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -75,6 +86,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
             start_Date = itemView.findViewById(R.id.date_added);
             expiration_Date = itemView.findViewById(R.id.expiration_date);
             cardView = itemView.findViewById(R.id.card_view);
+            expiryColor = itemView.findViewById(R.id.expiry_color);
         }
 
 
