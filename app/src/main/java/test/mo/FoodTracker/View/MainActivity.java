@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // hide/show animation for the floating action button
-        setScrollListener(recyclerView);
+//        setScrollListener(recyclerView);
 
         // get any updates to the data
         foodListViewModel.getFoodList().observe(MainActivity.this, new Observer<List<Food>>() {

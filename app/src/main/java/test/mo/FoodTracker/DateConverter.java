@@ -59,8 +59,6 @@ public class DateConverter {
     }
 
     public String getAddedString(long dateInLong){
-        // TODO: Display Today Yesterday or days if same month
-        // TODO: else display  day + month
         switch (getDaysTo(dateInLong)){
             case  0: return "Today!";
             case -1: return "Yesterday";
