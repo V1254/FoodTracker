@@ -31,5 +31,8 @@ public interface FoodDao {
     @Query("SELECT * FROM Food")
     LiveData<List<Food>> getLiveFoods();
 
+    @Query("DELETE FROM Food")
+    void nukeData();
+
 
 }
