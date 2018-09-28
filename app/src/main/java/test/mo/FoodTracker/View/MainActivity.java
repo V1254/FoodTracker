@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
      DateConverter dateConverter;
      FoodListViewModel foodListViewModel;
      DeleteViewModel deleteViewModel;
+     Toast toast;
 
     private static final String TAG = "MainActivity";
 
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new Adapter(new ArrayList<Food>(),dateConverter);
         foodListViewModel = ViewModelProviders.of(this).get(FoodListViewModel.class);
         deleteViewModel = ViewModelProviders.of(this).get(DeleteViewModel.class);
-
+        toast = Toast.makeText(getApplicationContext(),null,Toast.LENGTH_SHORT);
     }
 
     private void setScrollListener(RecyclerView recyclerView){
@@ -140,7 +141,8 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.delete_All:
                 if(adapter.getItemCount() == 0){
-                    Toast.makeText(this, "Nothing to Delete", Toast.LENGTH_SHORT).show();
+                    toast.setText("Nothing to delete");
+                    toast.show();
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setIcon(R.drawable.ic_warning_black_24dp)
@@ -150,12 +152,14 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     deleteViewModel.deleteAll();
-                                    Toast.makeText(MainActivity.this, "Deleted Entries", Toast.LENGTH_SHORT).show();
+                                    toast.setText("Deleted Entries");
+                                    toast.show();
                                 }})
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(MainActivity.this, "Canceled", Toast.LENGTH_SHORT).show();
+                                   toast.setText("Cancelled");
+                                   toast.show();
                                 }});
                     AlertDialog dialog = builder.create();
                     dialog.show();
