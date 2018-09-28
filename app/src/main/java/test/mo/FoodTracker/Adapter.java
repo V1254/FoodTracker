@@ -16,7 +16,7 @@ import java.util.List;
 import test.mo.FoodTracker.Model.Food;
 import test.mo.FoodTracker.View.UpdateActivity;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
+public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     private List<Food> foods;
     private DateConverter dateConverter;
@@ -31,7 +31,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview, parent, false);
         return new MyViewHolder(view);
 
     }
@@ -48,7 +48,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
         String toDisplay = dateConverter.getExpiryString(expiryDate);
         holder.expiration_Date.setText(toDisplay);
 
-        if(toDisplay.equals("Expired!!") || toDisplay.equals("Today") || toDisplay.equals("Tomorrow")){
+        if (toDisplay.equals("Expired!!") || toDisplay.equals("Today") || toDisplay.equals("Tomorrow")) {
             holder.expiration_Date.setTextColor(Color.RED);
             holder.expiryColor.setBackgroundColor(Color.RED);
         } else {
@@ -64,17 +64,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
         return foods.size();
     }
 
-    public Food getFoodAtPosition(int position){
+    public Food getFoodAtPosition(int position) {
         return foods.get(position);
     }
 
-    public void addItems(List<Food> foodList){
+    public void addItems(List<Food> foodList) {
         this.foods = foodList;
         notifyDataSetChanged();
     }
 
     // non static to allow access to enclosing fields/methods
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView food_Name;
         TextView start_Date;
@@ -97,15 +97,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
         public void onClick(View v) {
             Food food = getFoodAtPosition(getAdapterPosition());
             Intent intent = new Intent(v.getContext(), UpdateActivity.class);
-            intent.putExtra("id",food.getId());
-            intent.putExtra("name",food.getFoodName());
-            intent.putExtra("added",food.getStartDate());
-            intent.putExtra("expiry",food.getExpiryDate());
+            intent.putExtra("id", food.getId());
+            intent.putExtra("name", food.getFoodName());
+            intent.putExtra("added", food.getStartDate());
+            intent.putExtra("expiry", food.getExpiryDate());
             v.getContext().startActivity(intent);
         }
     }
-
-
 
 
 }

@@ -31,7 +31,7 @@ public class Food {
     }
 
     @Ignore
-    public Food(int id, String name, Long startDate, Long expiryDate){
+    public Food(int id, String name, Long startDate, Long expiryDate) {
         this.id = id;
         this.foodName = name;
         this.startDate = startDate;

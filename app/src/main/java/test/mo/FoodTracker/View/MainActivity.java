@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
      DeleteViewModel deleteViewModel;
      Toast toast;
 
-    private static final String TAG = "MainActivity";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +49,6 @@ public class MainActivity extends AppCompatActivity {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setAdapter(adapter);
         }
-
-        // hide/show animation for the floating action button
-//        setScrollListener(recyclerView);
 
         // get any updates to the data
         foodListViewModel.getFoodList().observe(MainActivity.this, new Observer<List<Food>>() {
@@ -68,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
         // swipe to delete function on recyclerview
         setDeleteListener(recyclerView);
-
     }
 
     private void initComponents(){
@@ -79,27 +73,6 @@ public class MainActivity extends AppCompatActivity {
         foodListViewModel = ViewModelProviders.of(this).get(FoodListViewModel.class);
         deleteViewModel = ViewModelProviders.of(this).get(DeleteViewModel.class);
         toast = Toast.makeText(getApplicationContext(),null,Toast.LENGTH_SHORT);
-    }
-
-    private void setScrollListener(RecyclerView recyclerView){
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-
-                if(dy < 0){
-                    // scrolled up
-                    fab.show();
-                } else if (dy > 0){
-                    // scrolled down
-                    fab.hide();
-                }
-            }
-        });
     }
 
     private void setFoodCreateListener(FloatingActionButton fab) {
@@ -141,24 +114,24 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.delete_All:
                 if(adapter.getItemCount() == 0){
-                    toast.setText("Nothing to delete");
+                    toast.setText(R.string.nothing_to_delete);
                     toast.show();
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setIcon(R.drawable.ic_warning_black_24dp)
-                            .setTitle("Delete All Items")
-                            .setMessage("This will delete all Items and is Irreversible")
-                            .setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
+                            .setTitle(R.string.delete_all_items)
+                            .setMessage(R.string.toast_message)
+                            .setPositiveButton(R.string.positive_proceed, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     deleteViewModel.deleteAll();
-                                    toast.setText("Deleted Entries");
+                                    toast.setText(R.string.deleted_success);
                                     toast.show();
                                 }})
-                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                   toast.setText("Cancelled");
+                                   toast.setText(R.string.cancelled);
                                    toast.show();
                                 }});
                     AlertDialog dialog = builder.create();
@@ -168,6 +141,5 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
 }

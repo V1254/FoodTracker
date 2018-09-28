@@ -8,24 +8,23 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
- //
+//
 
 public class DateConverter {
     private static final String TAG = "DateConverter";
     private SimpleDateFormat simpleDateFormat;
     private Date currentDate;
 
-    public DateConverter(SimpleDateFormat simpleDateFormat){
+    public DateConverter(SimpleDateFormat simpleDateFormat) {
         this.simpleDateFormat = simpleDateFormat;
         currentDate = new Date(); // setups to todays date.
     }
 
-
-    public long convertToLong(String string_date){
+    public long convertToLong(String string_date) {
         Long to_return = 0L;
-        try{
+        try {
             to_return = this.simpleDateFormat.parse(string_date).getTime();
-        } catch (ParseException pe){
+        } catch (ParseException pe) {
             Log.e(TAG, "convertToLong: missing date / wrong simpledateformart");
             pe.printStackTrace();
         } finally {
@@ -33,7 +32,7 @@ public class DateConverter {
         }
     }
 
-    public String convertToStringDate(long dateInLong){
+    public String convertToStringDate(long dateInLong) {
         return simpleDateFormat.format(new Date(dateInLong));
     }
 
@@ -45,38 +44,40 @@ public class DateConverter {
         this.simpleDateFormat = simpleDateFormat;
     }
 
-
-    public String getExpiryString(long d){
-        if(isExpired(d)){
+    public String getExpiryString(long d) {
+        if (isExpired(d)) {
             return "Expired!!";
-        } else if (isWeekLeft(d)){
+        } else if (isWeekLeft(d)) {
             return getWeekStrings(getDaysTo(d));
-        } else if (isSameYear(d)){
+        } else if (isSameYear(d)) {
             return getSameYearString(d);
         } else {
             return getMonthYearString(d);
         }
     }
 
-    public String getAddedString(long dateInLong){
-        switch (getDaysTo(dateInLong)){
-            case  0: return "Today!";
-            case -1: return "Yesterday";
-            default: return Math.abs(getDaysTo(dateInLong)) + " days ago";
+    public String getAddedString(long dateInLong) {
+        switch (getDaysTo(dateInLong)) {
+            case 0:
+                return "Today!";
+            case -1:
+                return "Yesterday";
+            default:
+                return Math.abs(getDaysTo(dateInLong)) + " days ago";
         }
     }
 
-    private int getDaysTo(long date){
+    private int getDaysTo(long date) {
         // cast since long doesn't work in switch statement
         return (int) (TimeUnit.MILLISECONDS.toDays(date) - TimeUnit.MILLISECONDS.toDays(currentDate.getTime()));
     }
 
-    private boolean isWeekLeft(long dateInLong){
+    private boolean isWeekLeft(long dateInLong) {
         Long diff = TimeUnit.MILLISECONDS.toDays(dateInLong) - TimeUnit.MILLISECONDS.toDays(currentDate.getTime());
-        return diff >= 0&& diff <= 7 ;
+        return diff >= 0 && diff <= 7;
     }
 
-    private boolean isSameYear(long d){
+    private boolean isSameYear(long d) {
         Calendar current = Calendar.getInstance();
         Calendar compare = Calendar.getInstance();
         current.setTime(currentDate);
@@ -85,26 +86,27 @@ public class DateConverter {
 
     }
 
-    private boolean isExpired(long d){
+    private boolean isExpired(long d) {
         return getDaysTo(d) < 0;
     }
 
-    private String getWeekStrings(int days){
-        switch (days){
-            case 0: return "Today";
-            case 1: return "Tomorrow";
-            default:return days + " days";
+    private String getWeekStrings(int days) {
+        switch (days) {
+            case 0:
+                return "Today";
+            case 1:
+                return "Tomorrow";
+            default:
+                return days + " days";
         }
     }
 
-    private String getSameYearString(long d){
+    private String getSameYearString(long d) {
         // TODO: add suffixes for the days 2nd,rd,th,st
         return new SimpleDateFormat("dd MMMM").format(new Date(d));
     }
 
-    private String getMonthYearString(long d){
+    private String getMonthYearString(long d) {
         return new SimpleDateFormat("MMMM YYYY").format(new Date(d));
     }
-
-
 }

@@ -6,4 +6,13 @@
     <string name="update_hint">Replace Name</string>
     <string name="datePicker_string">Update Expiry</string>
     <string name="expired">Expired!</string>
+    <string name="add_name">Name </string>
+    <string name="missing">Missing Name</string>
+    <string name="nothing_to_delete">Nothing to delete</string>
+    <string name="delete_all_items">Delete All Items</string>
+    <string name="toast_message">This will delete all items, and is irreversible</string>
+    <string name="positive_proceed">Proceed</string>
+    <string name="deleted_success">Deleted Entries</string>
+    <string name="cancel">Cancel</string>
+    <string name="cancelled">Cancelled</string>
 </resources>

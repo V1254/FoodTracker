@@ -13,9 +13,9 @@ public abstract class FoodDatabase extends RoomDatabase {
 
     private static FoodDatabase INSTANCE;
 
-    public static FoodDatabase getINSTANCE(Context context){
-        if(INSTANCE == null){
-            INSTANCE = Room.databaseBuilder(context,FoodDatabase.class,"food_db").build();
+    public static FoodDatabase getINSTANCE(Context context) {
+        if (INSTANCE == null) {
+            INSTANCE = Room.databaseBuilder(context, FoodDatabase.class, "food_db").build();
         }
         return INSTANCE;
     }

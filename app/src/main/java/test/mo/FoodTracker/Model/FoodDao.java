@@ -17,13 +17,13 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 public interface FoodDao {
 
     @Insert(onConflict = REPLACE)
-    void insertAll(Food...foods);
+    void insertAll(Food... foods);
 
     @Query("SELECT * FROM Food")
     List<Food> getAllFoods();
 
     @Delete
-    void deleteAll(Food...foods);
+    void deleteAll(Food... foods);
 
     @Update
     void updateFood(Food food);

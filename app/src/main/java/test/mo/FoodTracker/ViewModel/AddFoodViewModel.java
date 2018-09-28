@@ -17,15 +17,15 @@ public class AddFoodViewModel extends AndroidViewModel {
         foodDatabase = FoodDatabase.getINSTANCE(this.getApplication());
     }
 
-    public void addFood(Food food){
+    public void addFood(Food food) {
         new AddFoodTask(foodDatabase).execute(food);
     }
 
 
-    private static class AddFoodTask extends AsyncTask<Food,Void,Void>{
+    private static class AddFoodTask extends AsyncTask<Food, Void, Void> {
         private FoodDatabase foodDatabase;
 
-        public AddFoodTask(FoodDatabase foodDatabase){
+        public AddFoodTask(FoodDatabase foodDatabase) {
             this.foodDatabase = foodDatabase;
         }
 

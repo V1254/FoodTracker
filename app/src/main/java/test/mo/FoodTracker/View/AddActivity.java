@@ -25,6 +25,7 @@ public class AddActivity extends AppCompatActivity {
 
     Long todaysDate;
     Long expiryDate;
+    Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +42,12 @@ public class AddActivity extends AppCompatActivity {
         setListener(floatingActionButton);
     }
 
-    private void initComponents(){
+    private void initComponents() {
         editText = findViewById(R.id.food_name);
         calendarView = findViewById(R.id.expiry_date);
         floatingActionButton = findViewById(R.id.save_food);
         todaysDate = Calendar.getInstance().getTimeInMillis();
+        toast = Toast.makeText(getApplicationContext(),null,Toast.LENGTH_SHORT);
 
         // default expiry date
         expiryDate = todaysDate;
@@ -53,29 +55,30 @@ public class AddActivity extends AppCompatActivity {
         addFoodViewModel = ViewModelProviders.of(this).get(AddFoodViewModel.class);
     }
 
-    private void setListener(CalendarView calendarView){
+    private void setListener(CalendarView calendarView) {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 Calendar calendar = Calendar.getInstance();
-                calendar.set(year,month,dayOfMonth);
+                calendar.set(year, month, dayOfMonth);
                 expiryDate = calendar.getTimeInMillis();
             }
         });
     }
 
-    private void setListener(FloatingActionButton floatingActionButton){
+    private void setListener(FloatingActionButton floatingActionButton) {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // make sure editText/ expiryDate not null
-                if(editText.getText().toString().isEmpty()){
-                    Toast.makeText(AddActivity.this, "Missing Name!", Toast.LENGTH_SHORT).show();
+                if (editText.getText().toString().isEmpty()) {
+                    toast.setText(R.string.missing);
+                    toast.show();
                 } else {
                     addFoodViewModel.addFood(new Food(
-                        editText.getText().toString(),
-                        todaysDate,
-                        expiryDate
+                            editText.getText().toString(),
+                            todaysDate,
+                            expiryDate
                     ));
                     finish();
                 }
