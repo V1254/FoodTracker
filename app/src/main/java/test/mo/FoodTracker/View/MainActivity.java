@@ -139,23 +139,27 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.delete_All:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setIcon(R.drawable.ic_warning_black_24dp)
-                        .setTitle("Delete All Items")
-                        .setMessage("This will delete all Items and is Irreversible")
-                        .setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(MainActivity.this, "Deleted Entries", Toast.LENGTH_SHORT).show();
-                                deleteViewModel.deleteAll();
-                            }})
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                if(adapter.getItemCount() == 0){
+                    Toast.makeText(this, "Nothing to Delete", Toast.LENGTH_SHORT).show();
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setIcon(R.drawable.ic_warning_black_24dp)
+                            .setTitle("Delete All Items")
+                            .setMessage("This will delete all Items and is Irreversible")
+                            .setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    deleteViewModel.deleteAll();
+                                    Toast.makeText(MainActivity.this, "Deleted Entries", Toast.LENGTH_SHORT).show();
+                                }})
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Toast.makeText(MainActivity.this, "Canceled", Toast.LENGTH_SHORT).show();
                                 }});
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
