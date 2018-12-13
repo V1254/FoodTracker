@@ -6,8 +6,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -16,15 +19,17 @@ import test.mo.FoodTracker.Model.Food;
 import test.mo.FoodTracker.R;
 import test.mo.FoodTracker.ViewModel.AddFoodViewModel;
 
-public class AddActivity extends AppCompatActivity {
+public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     EditText editText;
     CalendarView calendarView;
     FloatingActionButton floatingActionButton;
     AddFoodViewModel addFoodViewModel;
+    Spinner spinner;
 
     Long todaysDate;
     Long expiryDate;
+    String category;
     Toast toast;
 
     @Override
@@ -40,6 +45,13 @@ public class AddActivity extends AppCompatActivity {
 
         // listener to save to the database;
         setListener(floatingActionButton);
+
+        ArrayAdapter<CharSequence> spinAdapter = ArrayAdapter.createFromResource(this,R.array.categories,android.R.layout.simple_spinner_item);
+        spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinAdapter);
+        spinner.setOnItemSelectedListener(this);
+
+
     }
 
     private void initComponents() {
@@ -48,7 +60,7 @@ public class AddActivity extends AppCompatActivity {
         floatingActionButton = findViewById(R.id.save_food);
         todaysDate = Calendar.getInstance().getTimeInMillis();
         toast = Toast.makeText(getApplicationContext(),null,Toast.LENGTH_SHORT);
-
+        spinner = findViewById(R.id.spinner);
         // default expiry date
         expiryDate = todaysDate;
 
@@ -70,6 +82,7 @@ public class AddActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(AddActivity.this, category + "from the setListener", Toast.LENGTH_SHORT).show();
                 // make sure editText/ expiryDate not null
                 if (editText.getText().toString().isEmpty()) {
                     toast.setText(R.string.missing);
@@ -78,7 +91,8 @@ public class AddActivity extends AppCompatActivity {
                     addFoodViewModel.addFood(new Food(
                             editText.getText().toString(),
                             todaysDate,
-                            expiryDate
+                            expiryDate,
+                            category
                     ));
                     finish();
                 }
@@ -86,4 +100,13 @@ public class AddActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        category = parent.getItemAtPosition(position).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        category = getResources().getResourceName(R.string.default_category);
+    }
 }

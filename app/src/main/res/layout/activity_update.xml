@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context="test.mo.FoodTracker.View.UpdateActivity">
 
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
     <android.support.design.widget.TextInputLayout
         android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
@@ -39,7 +48,7 @@
         app:layout_constraintBottom_toTopOf="@+id/update_fab"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner2" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/update_fab"

@@ -48,6 +48,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         String toDisplay = dateConverter.getExpiryString(expiryDate);
         holder.expiration_Date.setText(toDisplay);
 
+        String category = foods.get(holder.getAdapterPosition()).getCategory();
+        holder.categoryImage.setImageResource(getDrawable(category));
+
         if (toDisplay.equals("Expired!!") || toDisplay.equals("Today") || toDisplay.equals("Tomorrow")) {
             holder.expiration_Date.setTextColor(Color.RED);
             holder.expiryColor.setBackgroundColor(Color.RED);
@@ -55,7 +58,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             holder.expiration_Date.setTextColor(Color.GREEN);
             holder.expiryColor.setBackgroundColor(Color.GREEN);
         }
-
 
     }
 
@@ -73,6 +75,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         notifyDataSetChanged();
     }
 
+    private int getDrawable(String category){
+        switch (category){
+            case "Fruit & Veg": return R.drawable.veg;
+            case "Meats": return R.drawable.meat;
+            case "Dairy": return R.drawable.dairy;
+            case "Grains": return R.drawable.grain;
+            case "Oils": return R.drawable.oil;
+            default:return R.drawable.other;
+        }
+    }
+
     // non static to allow access to enclosing fields/methods
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -81,6 +94,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         TextView expiration_Date;
         CardView cardView;
         ImageView expiryColor;
+        ImageView categoryImage;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -90,6 +104,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             expiration_Date = itemView.findViewById(R.id.expiration_date);
             cardView = itemView.findViewById(R.id.card_view);
             expiryColor = itemView.findViewById(R.id.expiry_color);
+            categoryImage = itemView.findViewById(R.id.categoryImage);
         }
 
 
@@ -101,6 +116,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             intent.putExtra("name", food.getFoodName());
             intent.putExtra("added", food.getStartDate());
             intent.putExtra("expiry", food.getExpiryDate());
+            intent.putExtra("category",food.getCategory());
             v.getContext().startActivity(intent);
         }
     }

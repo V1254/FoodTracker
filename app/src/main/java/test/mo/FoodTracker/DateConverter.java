@@ -59,7 +59,7 @@ public class DateConverter {
     public String getAddedString(long dateInLong) {
         switch (getDaysTo(dateInLong)) {
             case 0:
-                return "Today!";
+                return "Today";
             case -1:
                 return "Yesterday";
             default:
