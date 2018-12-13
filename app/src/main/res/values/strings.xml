@@ -15,4 +15,15 @@
     <string name="deleted_success">Deleted Entries</string>
     <string name="cancel">Cancel</string>
     <string name="cancelled">Cancelled</string>
+
+    <string-array name="categories">
+        <item>Fruit &amp; Veg</item>
+        <item>Meats</item>
+        <item>Dairy</item>
+        <item>Grains</item>
+        <item>Oils</item>
+        <item>Other</item>
+    </string-array>
+
+    <string name="default_category">Other</string>
 </resources>

@@ -24,20 +24,23 @@ public class Food {
     @ColumnInfo(name = "expiry_date")
     private Long expiryDate;
 
-    public Food(String foodName, Long startDate, Long expiryDate) {
+    private String category;
+
+    public Food(String foodName, Long startDate, Long expiryDate, String category) {
         this.foodName = foodName;
         this.startDate = startDate;
         this.expiryDate = expiryDate;
+        this.category = category;
     }
 
     @Ignore
-    public Food(int id, String name, Long startDate, Long expiryDate) {
+    public Food(int id, String name, Long startDate, Long expiryDate, String category) {
         this.id = id;
         this.foodName = name;
         this.startDate = startDate;
         this.expiryDate = expiryDate;
+        this.category = category;
     }
-
 
     public int getId() {
         return id;
@@ -69,5 +72,13 @@ public class Food {
 
     public void setExpiryDate(Long expiryDate) {
         this.expiryDate = expiryDate;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
