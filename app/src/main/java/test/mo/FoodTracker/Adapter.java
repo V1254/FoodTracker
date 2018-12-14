@@ -41,8 +41,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
         holder.food_Name.setText(foods.get(holder.getAdapterPosition()).getFoodName());
 
-        Long dateAdded = foods.get(holder.getAdapterPosition()).getStartDate();
-        holder.start_Date.setText(dateConverter.getAddedString(dateAdded));
+//        Long dateAdded = foods.get(holder.getAdapterPosition()).getStartDate();
+//        holder.start_Date.setText(dateConverter.getAddedString(dateAdded));
 
         Long expiryDate = foods.get(holder.getAdapterPosition()).getExpiryDate();
         String toDisplay = dateConverter.getExpiryString(expiryDate);
@@ -100,7 +100,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             super(itemView);
             itemView.setOnClickListener(this);
             food_Name = itemView.findViewById(R.id.food_name);
-            start_Date = itemView.findViewById(R.id.date_added);
+//            start_Date = itemView.findViewById(R.id.date_added);
             expiration_Date = itemView.findViewById(R.id.expiration_date);
             cardView = itemView.findViewById(R.id.card_view);
             expiryColor = itemView.findViewById(R.id.expiry_color);
