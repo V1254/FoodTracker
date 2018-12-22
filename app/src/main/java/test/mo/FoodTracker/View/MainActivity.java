@@ -12,9 +12,11 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
      FoodListViewModel foodListViewModel;
      DeleteViewModel deleteViewModel;
      Toast toast;
+    // size of the cards with the margin added (120 + 8)
+     private final int cardWidth = 128;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
         if(recyclerView != null){
             recyclerView.setLayoutManager(new GridLayoutManager(this,3));
             recyclerView.setAdapter(adapter);
+            ViewTreeObserver observer = recyclerView.getViewTreeObserver();
+            // dynamically sets span count for the LayoutManager in the recyclerView.
+            setListener(observer);
         }
 
         // get any updates to the data
@@ -62,9 +69,36 @@ public class MainActivity extends AppCompatActivity {
         // listener to create new foods
         setFoodCreateListener(fab);
 
+
         // swipe to delete function on recyclerview
         setDeleteListener(recyclerView);
     }
+
+    private void setListener(ViewTreeObserver observer) {
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                calculateColumnSize();
+            }
+        });
+    }
+
+    private void calculateColumnSize() {
+        int spanCount = (int) Math.floor(recyclerView.getWidth() / convertToPixels(cardWidth));
+        ((GridLayoutManager)recyclerView.getLayoutManager()).setSpanCount(spanCount);
+    }
+
+    /**
+     * Converts the passedInValue to Pixels.
+     * @param cardWidth
+     * @return
+     */
+
+    private float convertToPixels(int cardWidth) {
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        return cardWidth * metrics.density;
+    }
+
 
     private void initComponents(){
         recyclerView = findViewById(R.id.recyclerView);
