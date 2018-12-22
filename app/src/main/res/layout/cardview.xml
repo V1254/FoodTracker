@@ -3,99 +3,77 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
-    android:layout_width="match_parent"
-    android:layout_height="70dp"
-    android:layout_marginBottom="5dp"
-    app:cardCornerRadius="4dp"
-    app:cardElevation="5dp"
+    android:layout_width="120dp"
+    android:layout_height="140dp"
+    android:layout_margin="8dp"
     app:cardBackgroundColor="?attr/cardBackgroundColor"
-    >
+    app:cardCornerRadius="4dp"
+    app:cardElevation="5dp">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/expiry_color"
-            android:layout_width="5dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorAccent"
+            android:layout_width="0dp"
+            android:layout_height="7dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/categoryImage"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
         <TextView
             android:id="@+id/food_name"
             android:layout_width="0dp"
-            android:layout_height="18dp"
-            android:layout_marginStart="8dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:textColor="?attr/mainTextColor"
+            android:layout_marginBottom="8dp"
+            android:background="#2196F3"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/expiry_color"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/categoryImage"
             tools:text="food_name" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/added_name"
-            android:textColor="?attr/otherTextColor"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/expiry_color"
-            tools:text="Added: " />
-
-        <TextView
-            android:id="@+id/date_added"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:textAllCaps="false"
-            android:textColor="?attr/otherTextColor"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView9"
-            tools:text="2 Days Ago" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:text="@string/expires_name"
             android:textColor="?attr/otherTextColor"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/expiration_date"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toTopOf="@+id/expiration_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/expiration_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:textColor="?attr/mainTextColor"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/expiry_color"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             tools:text="14 Days" />
 
         <ImageView
             android:id="@+id/categoryImage"
             android:layout_width="48dp"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:color/white" />
