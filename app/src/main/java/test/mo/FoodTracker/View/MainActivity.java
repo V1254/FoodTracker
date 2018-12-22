@@ -10,13 +10,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -72,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         fab =findViewById(R.id.fab_Add);
         dateConverter =  new DateConverter(new SimpleDateFormat("dd-MM-YYYY"));
-        adapter = new Adapter(new ArrayList<Food>(),dateConverter);
+        adapter = new Adapter(new ArrayList<Food>(),dateConverter, this);
         foodListViewModel = ViewModelProviders.of(this).get(FoodListViewModel.class);
         deleteViewModel = ViewModelProviders.of(this).get(DeleteViewModel.class);
         toast = Toast.makeText(getApplicationContext(),null,Toast.LENGTH_SHORT);

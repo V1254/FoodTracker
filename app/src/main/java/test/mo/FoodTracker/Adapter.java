@@ -1,8 +1,10 @@
 package test.mo.FoodTracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,10 +22,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     private List<Food> foods;
     private DateConverter dateConverter;
+    private Context context;
 
-    public Adapter(List<Food> foods, DateConverter dateConverter) {
+    public Adapter(List<Food> foods, DateConverter dateConverter, Context context) {
         this.foods = foods;
         this.dateConverter = dateConverter;
+        this.context = context;
     }
 
 
@@ -51,9 +55,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         String category = foods.get(holder.getAdapterPosition()).getCategory();
         holder.categoryImage.setImageResource(getDrawable(category));
 
-        if (toDisplay.equals("Expired!!") || toDisplay.equals("Today") || toDisplay.equals("Tomorrow")) {
+        if (toDisplay.equals("Expired!!") || toDisplay.equals("Today")) {
             holder.expiration_Date.setTextColor(Color.RED);
             holder.expiryColor.setBackgroundColor(Color.RED);
+        } else if(toDisplay.equals("Tomorrow")) {
+            holder.expiration_Date.setTextColor(ContextCompat.getColor(context,R.color.amber));
+            holder.expiryColor.setBackgroundColor(ContextCompat.getColor(context,R.color.amber));
         } else {
             holder.expiration_Date.setTextColor(Color.GREEN);
             holder.expiryColor.setBackgroundColor(Color.GREEN);
