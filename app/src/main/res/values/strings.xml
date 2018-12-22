@@ -12,7 +12,7 @@
     <string name="delete_all_items">Delete All Items</string>
     <string name="toast_message">This will delete all items, and is irreversible</string>
     <string name="positive_proceed">Proceed</string>
-    <string name="deleted_success">Deleted Entries</string>
+    <string name="deleted_success">Deleted All Entries</string>
     <string name="cancel">Cancel</string>
     <string name="cancelled">Cancelled</string>
 

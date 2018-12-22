@@ -82,7 +82,6 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(AddActivity.this, category + "from the setListener", Toast.LENGTH_SHORT).show();
                 // make sure editText/ expiryDate not null
                 if (editText.getText().toString().isEmpty()) {
                     toast.setText(R.string.missing);
