@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -22,13 +24,12 @@ import test.mo.FoodTracker.ViewModel.AddFoodViewModel;
 public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     EditText editText;
-    CalendarView calendarView;
+    DatePicker datePicker;
     FloatingActionButton floatingActionButton;
     AddFoodViewModel addFoodViewModel;
     Spinner spinner;
 
     Long todaysDate;
-    Long expiryDate;
     String category;
     Toast toast;
 
@@ -40,13 +41,10 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         // initialise fields/components
         initComponents();
 
-        // date change listener on the calender view.
-        setListener(calendarView);
-
         // listener to save to the database;
         setListener(floatingActionButton);
 
-        ArrayAdapter<CharSequence> spinAdapter = ArrayAdapter.createFromResource(this,R.array.categories,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> spinAdapter = ArrayAdapter.createFromResource(this, R.array.categories, android.R.layout.simple_spinner_item);
         spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinAdapter);
         spinner.setOnItemSelectedListener(this);
@@ -56,27 +54,14 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
     private void initComponents() {
         editText = findViewById(R.id.food_name);
-        calendarView = findViewById(R.id.expiry_date);
+        datePicker = findViewById(R.id.expiry_date);
         floatingActionButton = findViewById(R.id.save_food);
         todaysDate = Calendar.getInstance().getTimeInMillis();
-        toast = Toast.makeText(getApplicationContext(),null,Toast.LENGTH_SHORT);
+        toast = Toast.makeText(getApplicationContext(), null, Toast.LENGTH_SHORT);
         spinner = findViewById(R.id.spinner);
-        // default expiry date
-        expiryDate = todaysDate;
-
         addFoodViewModel = ViewModelProviders.of(this).get(AddFoodViewModel.class);
     }
 
-    private void setListener(CalendarView calendarView) {
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(year, month, dayOfMonth);
-                expiryDate = calendar.getTimeInMillis();
-            }
-        });
-    }
 
     private void setListener(FloatingActionButton floatingActionButton) {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +75,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                     addFoodViewModel.addFood(new Food(
                             editText.getText().toString(),
                             todaysDate,
-                            expiryDate,
+                            getLongFromPicker(),
                             category
                     ));
                     finish();
@@ -107,5 +92,14 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         category = getResources().getResourceName(R.string.default_category);
+    }
+
+    private Long getLongFromPicker() {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
+        c.set(Calendar.MONTH, datePicker.getMonth());
+        c.set(Calendar.YEAR, datePicker.getYear());
+
+        return c.getTimeInMillis();
     }
 }
