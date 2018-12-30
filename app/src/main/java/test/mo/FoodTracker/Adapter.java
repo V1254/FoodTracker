@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import test.mo.FoodTracker.Model.Food;
 import test.mo.FoodTracker.View.AddActivity;
@@ -23,6 +25,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     private List<Food> foods;
     private DateConverter dateConverter;
     private Context context;
+    private int themeID;
 
     public Adapter(List<Food> foods, DateConverter dateConverter, Context context) {
         this.foods = foods;
@@ -55,17 +58,48 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         String category = foods.get(holder.getAdapterPosition()).getCategory();
         holder.categoryImage.setImageResource(getDrawable(category));
 
-        if (toDisplay.equals("Expired!!") || toDisplay.equals("Today")) {
-            holder.expiration_Date.setTextColor(Color.RED);
-            holder.expiryColor.setBackgroundColor(Color.RED);
-        } else if(toDisplay.equals("Tomorrow")) {
-            holder.expiration_Date.setTextColor(ContextCompat.getColor(context,R.color.amber));
-            holder.expiryColor.setBackgroundColor(ContextCompat.getColor(context,R.color.amber));
-        } else {
-            holder.expiration_Date.setTextColor(Color.GREEN);
-            holder.expiryColor.setBackgroundColor(Color.GREEN);
-        }
+        Map<String, Integer> colors = generateColors();
 
+        switch (toDisplay) {
+            case "Tomorrow":
+                setColor(holder, colors.get(toDisplay));
+                break;
+            case "Expired!!":
+                setColor(holder, colors.get(toDisplay));
+                break;
+            case "Today":
+                setColor(holder, colors.get(toDisplay));
+                break;
+            default:
+                setColor(holder, colors.get("Default"));
+        }
+    }
+
+    public void setThemeID(int themeID){
+        this.themeID = themeID;
+    }
+
+    // colors based on current theme.
+    private Map<String,Integer> generateColors(){
+        Map<String,Integer> colorMap = new HashMap<>();
+        if(themeID == 0){
+            // light theme so bright colors.
+            colorMap.put("Expired!!",R.color.light_mode_red);
+            colorMap.put("Today",R.color.light_mode_red);
+            colorMap.put("Tomorrow",R.color.light_mode_amber);
+            colorMap.put("Default",R.color.light_mode_green);
+            return colorMap;
+        }
+        colorMap.put("Expired!!",R.color.dark_mode_Red);
+        colorMap.put("Today",R.color.dark_mode_Red);
+        colorMap.put("Tomorrow",R.color.dark_mode_Amber);
+        colorMap.put("Default",R.color.dark_mode_Green);
+        return colorMap;
+    }
+
+    private void setColor(MyViewHolder holder, int color){
+        holder.expiration_Date.setTextColor(ContextCompat.getColor(context,color));
+        holder.expiryColor.setBackgroundColor(ContextCompat.getColor(context,color));
     }
 
     @Override
@@ -92,6 +126,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             default:return R.drawable.other;
         }
     }
+
+
 
     // non static to allow access to enclosing fields/methods
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

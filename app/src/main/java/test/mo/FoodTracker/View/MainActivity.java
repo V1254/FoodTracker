@@ -62,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
         // initialise fields
         initComponents();
 
+        // set the theme for the adapter after its initialized
+        adapter.setThemeID(currentTheme);
+
         if(recyclerView != null){
             recyclerView.setLayoutManager(new GridLayoutManager(this,3));
             recyclerView.setAdapter(adapter);
