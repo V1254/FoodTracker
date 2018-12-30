@@ -38,10 +38,9 @@
                 android:layout_marginBottom="8dp"
                 android:gravity="center"
                 android:text="@string/light"
-                android:textColor="@color/cardview_dark_background"
+                android:textColor="@color/black"
                 android:textSize="24sp"
                 android:typeface="sans" />
-
             <ImageView
                 android:id="@+id/light_theme_image"
                 android:layout_width="wrap_content"
@@ -62,7 +61,7 @@
         android:layout_marginBottom="8dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="?attr/cardBackgroundColor"
+        app:cardBackgroundColor="@color/black"
         app:cardCornerRadius="4dp"
         app:cardElevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -83,7 +82,7 @@
                 android:layout_marginBottom="8dp"
                 android:gravity="center"
                 android:text="@string/dark"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 android:typeface="sans" />
 
