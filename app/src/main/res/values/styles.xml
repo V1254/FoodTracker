@@ -1,18 +1,55 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#2196F3</item>
-        <item name="colorPrimaryDark">#1976D2</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="backgroundColor">#fcfcfc</item>
-        <item name="cardBackgroundColor">#ffffff</item>
-        <item name="buttonColor">@color/colorAccent</item>
-        <item name="buttonTint">@color/tint</item>
-        <item name="mainTextColor">#000000</item>
-        <item name="otherTextColor">#808080</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="backgroundColor">@color/pale_white</item>
 
+        <!-- cardview background light -->
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardTextColor">@color/white</item>
+        <item name="cardExpiryColor">@color/light_grey</item>
+
+        <!-- button styling light -->
+        <item name="buttonColor">@color/colorAccent</item>
+        <item name="buttonTint">@color/white</item>
+
+        <!-- activity_add styling -->
+        <item name="categoryTextColor">@color/black</item>
+        <item name="spinnerPopUpColor">@color/white</item>
+        <item name="textInputColor">@color/black</item>
+    </style>
+
+    <!-- Dark Theme-->
+    <style name="DarkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Base -->
+        <item name="colorPrimary">@color/dark_grey</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="backgroundColor">@color/lighter_grey</item>
+        <item name="colorAccent">@color/white</item>
+
+        <!--cardView background dark -->
+        <item name="cardBackgroundColor">@color/grey</item>
+        <item name="cardTextColor">@color/white</item>
+        <item name="cardExpiryColor">@color/white2</item>
+
+        <!-- button styling dark -->
+        <item name="buttonColor">@color/dark_grey</item>
+        <item name="buttonTint">@color/white</item>
+
+        <!-- activity_add styling -->
+        <item name="categoryTextColor">@color/trans</item>
+        <item name="spinnerPopUpColor">@color/grey</item>
+        <item name="textInputColor">@color/white</item>
+        <item name="calenderTheme">@style/darkCalendar</item>
+    </style>
+
+    <!-- Calendar Theme for dark mode -->
+    <style name="darkCalendar" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:colorControlNormal">@color/white</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -23,32 +60,5 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <!-- Dark Theme-->
-    <style name="DarkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">#000</item>
-        <item name="colorPrimaryDark">#212121</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="backgroundColor">#212121</item>
-        <item name="cardBackgroundColor">#616161</item>
-        <item name="buttonColor">#000</item>
-        <item name="buttonTint">#fff</item>
-        <item name="mainTextColor">#fff</item>
-        <item name="otherTextColor">#808080</item>
-        <!--<item name="android:datePickerStyle">@style/darkCalendar</item>-->
-    </style>
-
-
-    <!--TODO: work on -->
-    <!--<style name="darkCalendar" parent="@android:style/Widget.Holo.">-->
-        <!--<item name="android:textSize">30sp</item>-->
-        <!--<item name="android:textColorPrimary">#fff</item>-->
-        <!--<item name="android:colorControlNormal">@color/colorAccent</item>-->
-    <!--</style>-->
-
-
-    <style name="spinnerDark" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
-        <item name="android:textColor">@color/colorAccent</item>
-    </style>
 
 </resources>
