@@ -16,8 +16,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateFood" />
-        <activity android:name=".View.UpdateActivity" />
         <activity android:name=".View.AddActivity" />
         <activity
             android:name=".View.ThemeSelect"

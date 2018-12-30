@@ -1,15 +1,12 @@
 package test.mo.FoodTracker.View;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.support.annotation.NonNull;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -20,6 +17,7 @@ import java.util.Calendar;
 import test.mo.FoodTracker.Model.Food;
 import test.mo.FoodTracker.R;
 import test.mo.FoodTracker.ViewModel.AddFoodViewModel;
+import test.mo.FoodTracker.ViewModel.UpdateFoodViewModel;
 
 public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -27,6 +25,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     DatePicker datePicker;
     FloatingActionButton floatingActionButton;
     AddFoodViewModel addFoodViewModel;
+    UpdateFoodViewModel updateFoodViewModel;
     Spinner spinner;
 
     Long todaysDate;
@@ -41,15 +40,22 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         // initialise fields/components
         initComponents();
 
-        // listener to save to the database;
-        setListener(floatingActionButton);
 
         ArrayAdapter<CharSequence> spinAdapter = ArrayAdapter.createFromResource(this, R.array.categories, android.R.layout.simple_spinner_item);
         spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinAdapter);
         spinner.setOnItemSelectedListener(this);
 
-
+        // check to see what intents are available and set Listener accordingly.
+        if (isUpdate()) {
+            // use updateViewModel to save
+            setUpdateListener(floatingActionButton);
+            populateComponentsWIthIntent();
+            spinner.setSelection(spinAdapter.getPosition(category));
+        } else {
+            // use addViewModel to save
+            setAddListener(floatingActionButton);
+        }
     }
 
     private void initComponents() {
@@ -60,17 +66,17 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         toast = Toast.makeText(getApplicationContext(), null, Toast.LENGTH_SHORT);
         spinner = findViewById(R.id.spinner);
         addFoodViewModel = ViewModelProviders.of(this).get(AddFoodViewModel.class);
+        updateFoodViewModel = ViewModelProviders.of(this).get(UpdateFoodViewModel.class);
     }
 
 
-    private void setListener(FloatingActionButton floatingActionButton) {
+    private void setAddListener(FloatingActionButton floatingActionButton) {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // make sure editText/ expiryDate not null
-                if (editText.getText().toString().isEmpty()) {
-                    toast.setText(R.string.missing);
-                    toast.show();
+                if (isNullEditText()) {
+                    showMissingNameToast();
                 } else {
                     addFoodViewModel.addFood(new Food(
                             editText.getText().toString(),
@@ -83,6 +89,28 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             }
         });
     }
+
+    private void setUpdateListener(FloatingActionButton fb) {
+        fb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // make sure name is not empty
+                if (isNullEditText()) {
+                    showMissingNameToast();
+                } else {
+                    updateFoodViewModel.updateFood(new Food(
+                            getIntent().getIntExtra("id", 0),
+                            editText.getText().toString(),
+                            getIntent().getLongExtra("added", 0L),
+                            getLongFromPicker(),
+                            category
+                    ));
+                    finish();
+                }
+            }
+        });
+    }
+
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -99,7 +127,33 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         c.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
         c.set(Calendar.MONTH, datePicker.getMonth());
         c.set(Calendar.YEAR, datePicker.getYear());
-
         return c.getTimeInMillis();
     }
+
+    private boolean isUpdate() {
+        return getIntent().hasExtra("id") && getIntent().hasExtra("name") && getIntent().hasExtra("added") && getIntent().hasExtra("expiry");
+    }
+
+    private boolean isNullEditText() {
+        return editText.getText().toString().isEmpty();
+    }
+
+    private void showMissingNameToast() {
+        toast.setText(R.string.missing);
+        toast.show();
+    }
+
+    private void populateComponentsWIthIntent() {
+        editText.setText(getIntent().getStringExtra("name"));
+        category = getIntent().getStringExtra("category");
+
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(getIntent().getLongExtra("expiry", 0L));
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        datePicker.init(year, month, day, null);
+    }
+
+
 }

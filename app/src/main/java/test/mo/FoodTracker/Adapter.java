@@ -16,7 +16,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import test.mo.FoodTracker.Model.Food;
-import test.mo.FoodTracker.View.UpdateActivity;
+import test.mo.FoodTracker.View.AddActivity;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
@@ -118,7 +118,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         @Override
         public void onClick(View v) {
             Food food = getFoodAtPosition(getAdapterPosition());
-            Intent intent = new Intent(v.getContext(), UpdateActivity.class);
+            Intent intent = new Intent(v.getContext(), AddActivity.class);
             intent.putExtra("id", food.getId());
             intent.putExtra("name", food.getFoodName());
             intent.putExtra("added", food.getStartDate());
