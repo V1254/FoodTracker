@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
      Toast toast;
     // size of the cards with the margin added (120 + 8)
      private final int cardWidth = 128;
+     int alertDialogThemeResourceID;
 
 
 
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // theme setting
         int currentTheme = getCurrentThemeFromPreferences();
+        alertDialogThemeResourceID = getResourceID(currentTheme);
         ThemeUtils.changeTheme(MainActivity.this,currentTheme);
 
         super.onCreate(savedInstanceState);
@@ -167,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
                     toast.setText(R.string.nothing_to_delete);
                     toast.show();
                 } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this,alertDialogThemeResourceID);
                     builder.setIcon(R.drawable.ic_warning_black_24dp)
                             .setTitle(R.string.delete_all_items)
                             .setMessage(R.string.toast_message)
@@ -195,6 +197,15 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private int getResourceID(int theme){
+        if(theme == 0){
+            // light mode
+            return R.style.AlertDialogCustomLight;
+        } else {
+            return R.style.AlertDialogCustomDark;
         }
     }
 }
