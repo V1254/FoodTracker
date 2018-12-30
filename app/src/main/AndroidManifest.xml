@@ -16,9 +16,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateFood" />
-        <activity android:name=".View.UpdateActivity" />
-        <activity android:name=".View.AddActivity"></activity>
+        <activity android:name=".View.AddActivity" />
+        <activity
+            android:name=".View.ThemeSelect"
+            android:label="@string/title_activity_theme_select"
+            android:parentActivityName=".View.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="test.mo.FoodTracker.View.MainActivity" />
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

@@ -173,6 +173,11 @@ public class MainActivity extends AppCompatActivity {
                     dialog.show();
                 }
                 return true;
+
+            case R.id.theme_switch:
+                System.out.println("Clicked the theme icon");
+                startActivity(new Intent(this,ThemeSelect.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

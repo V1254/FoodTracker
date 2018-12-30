@@ -15,6 +15,10 @@
     <string name="deleted_success">Deleted All Entries</string>
     <string name="cancel">Cancel</string>
     <string name="cancelled">Cancelled</string>
+    <string name="dark">Dark</string>
+    <string name="light">Light</string>
+    <string name="title_activity_theme_select">Select a Theme</string>
+    <string name="category">Category:</string>
 
     <string-array name="categories">
         <item>Fruit &amp; Veg</item>

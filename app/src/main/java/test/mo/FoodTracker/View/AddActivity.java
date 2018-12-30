@@ -1,14 +1,13 @@
 package test.mo.FoodTracker.View;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.support.annotation.NonNull;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -18,17 +17,18 @@ import java.util.Calendar;
 import test.mo.FoodTracker.Model.Food;
 import test.mo.FoodTracker.R;
 import test.mo.FoodTracker.ViewModel.AddFoodViewModel;
+import test.mo.FoodTracker.ViewModel.UpdateFoodViewModel;
 
 public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     EditText editText;
-    CalendarView calendarView;
+    DatePicker datePicker;
     FloatingActionButton floatingActionButton;
     AddFoodViewModel addFoodViewModel;
+    UpdateFoodViewModel updateFoodViewModel;
     Spinner spinner;
 
     Long todaysDate;
-    Long expiryDate;
     String category;
     Toast toast;
 
@@ -40,57 +40,48 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         // initialise fields/components
         initComponents();
 
-        // date change listener on the calender view.
-        setListener(calendarView);
 
-        // listener to save to the database;
-        setListener(floatingActionButton);
-
-        ArrayAdapter<CharSequence> spinAdapter = ArrayAdapter.createFromResource(this,R.array.categories,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> spinAdapter = ArrayAdapter.createFromResource(this, R.array.categories, android.R.layout.simple_spinner_item);
         spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinAdapter);
         spinner.setOnItemSelectedListener(this);
 
-
+        // check to see what intents are available and set Listener accordingly.
+        if (isUpdate()) {
+            // use updateViewModel to save
+            setUpdateListener(floatingActionButton);
+            populateComponentsWIthIntent();
+            spinner.setSelection(spinAdapter.getPosition(category));
+        } else {
+            // use addViewModel to save
+            setAddListener(floatingActionButton);
+        }
     }
 
     private void initComponents() {
         editText = findViewById(R.id.food_name);
-        calendarView = findViewById(R.id.expiry_date);
+        datePicker = findViewById(R.id.expiry_date);
         floatingActionButton = findViewById(R.id.save_food);
         todaysDate = Calendar.getInstance().getTimeInMillis();
-        toast = Toast.makeText(getApplicationContext(),null,Toast.LENGTH_SHORT);
+        toast = Toast.makeText(getApplicationContext(), null, Toast.LENGTH_SHORT);
         spinner = findViewById(R.id.spinner);
-        // default expiry date
-        expiryDate = todaysDate;
-
         addFoodViewModel = ViewModelProviders.of(this).get(AddFoodViewModel.class);
+        updateFoodViewModel = ViewModelProviders.of(this).get(UpdateFoodViewModel.class);
     }
 
-    private void setListener(CalendarView calendarView) {
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(year, month, dayOfMonth);
-                expiryDate = calendar.getTimeInMillis();
-            }
-        });
-    }
 
-    private void setListener(FloatingActionButton floatingActionButton) {
+    private void setAddListener(FloatingActionButton floatingActionButton) {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // make sure editText/ expiryDate not null
-                if (editText.getText().toString().isEmpty()) {
-                    toast.setText(R.string.missing);
-                    toast.show();
+                if (isNullEditText()) {
+                    showMissingNameToast();
                 } else {
                     addFoodViewModel.addFood(new Food(
                             editText.getText().toString(),
                             todaysDate,
-                            expiryDate,
+                            getLongFromPicker(),
                             category
                     ));
                     finish();
@@ -98,6 +89,28 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             }
         });
     }
+
+    private void setUpdateListener(FloatingActionButton fb) {
+        fb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // make sure name is not empty
+                if (isNullEditText()) {
+                    showMissingNameToast();
+                } else {
+                    updateFoodViewModel.updateFood(new Food(
+                            getIntent().getIntExtra("id", 0),
+                            editText.getText().toString(),
+                            getIntent().getLongExtra("added", 0L),
+                            getLongFromPicker(),
+                            category
+                    ));
+                    finish();
+                }
+            }
+        });
+    }
+
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -108,4 +121,39 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     public void onNothingSelected(AdapterView<?> parent) {
         category = getResources().getResourceName(R.string.default_category);
     }
+
+    private Long getLongFromPicker() {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
+        c.set(Calendar.MONTH, datePicker.getMonth());
+        c.set(Calendar.YEAR, datePicker.getYear());
+        return c.getTimeInMillis();
+    }
+
+    private boolean isUpdate() {
+        return getIntent().hasExtra("id") && getIntent().hasExtra("name") && getIntent().hasExtra("added") && getIntent().hasExtra("expiry");
+    }
+
+    private boolean isNullEditText() {
+        return editText.getText().toString().isEmpty();
+    }
+
+    private void showMissingNameToast() {
+        toast.setText(R.string.missing);
+        toast.show();
+    }
+
+    private void populateComponentsWIthIntent() {
+        editText.setText(getIntent().getStringExtra("name"));
+        category = getIntent().getStringExtra("category");
+
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(getIntent().getLongExtra("expiry", 0L));
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        datePicker.init(year, month, day, null);
+    }
+
+
 }
