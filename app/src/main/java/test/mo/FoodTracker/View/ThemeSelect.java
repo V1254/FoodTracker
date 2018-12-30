@@ -1,15 +1,16 @@
 package test.mo.FoodTracker.View;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
 import test.mo.FoodTracker.R;
+import test.mo.FoodTracker.ThemeUtils;
 
 
 public class ThemeSelect extends AppCompatActivity {
@@ -17,29 +18,18 @@ public class ThemeSelect extends AppCompatActivity {
     CardView lightCard;
     CardView darkCard;
 
-
-    // TODO: use sharedpreferences for the multiple activities
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(inDarkMode()){
-            setTheme(R.style.DarkTheme);
-        } else {
-            setTheme(R.style.AppTheme);
-        }
+
+        int currentTheme = getCurrentThemeFromPreferences();
+        ThemeUtils.changeTheme(ThemeSelect.this,currentTheme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme_select);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         lightCard = findViewById(R.id.light_theme_card);
         darkCard = findViewById(R.id.dark_theme_card);
-
-        if(inDarkMode()){
-            darkCard.setEnabled(false);
-        } else {
-            lightCard.setEnabled(false);
-        }
-
         lightCard.setOnClickListener(new View.OnClickListener() {
             TextView textView;
 
@@ -49,7 +39,7 @@ public class ThemeSelect extends AppCompatActivity {
                 textView.append(" ✔");
                 darkCard.setEnabled(true);
                 lightCard.setEnabled(false);
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                storeTheme("theme",0);
                 restartApp();
             }
         });
@@ -63,7 +53,7 @@ public class ThemeSelect extends AppCompatActivity {
                 textView.append(" ✔");
                 darkCard.setEnabled(false);
                 lightCard.setEnabled(true);
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                storeTheme("theme",1);
                 restartApp();
             }
         });
@@ -72,11 +62,21 @@ public class ThemeSelect extends AppCompatActivity {
 
     void restartApp(){
         Intent i = new Intent(getApplicationContext(),MainActivity.class);
+        // relaunching main activity so clears previous one.
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
         finish();
     }
 
-    boolean inDarkMode(){
-        return AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
+    private void storeTheme(String theme, int themeId){
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt(theme,themeId);
+        editor.apply();
+    }
+
+    private int getCurrentThemeFromPreferences() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return pref.getInt("theme",0);
     }
 }

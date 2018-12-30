@@ -52,6 +52,25 @@
         <item name="android:colorControlNormal">@color/white</item>
     </style>
 
+    <style name="AlertDialogCustomLight" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title & ok/cancel -->
+        <item name="android:textColor">@color/dark_grey</item>
+        <!-- background color -->
+        <item name="android:background">@color/orange</item>
+        <!-- message style -->
+        <item name="android:textColorPrimary">@color/dark_grey</item>
+    </style>
+
+
+    <style name="AlertDialogCustomDark" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title & ok/cancel -->
+        <item name="android:textColor">@color/white</item>
+        <!-- background color -->
+        <item name="android:background">@color/dark_grey</item>
+        <!-- message style -->
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

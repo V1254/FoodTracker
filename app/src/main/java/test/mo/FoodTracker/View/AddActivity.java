@@ -1,10 +1,11 @@
 package test.mo.FoodTracker.View;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +18,7 @@ import java.util.Calendar;
 
 import test.mo.FoodTracker.Model.Food;
 import test.mo.FoodTracker.R;
+import test.mo.FoodTracker.ThemeUtils;
 import test.mo.FoodTracker.ViewModel.AddFoodViewModel;
 import test.mo.FoodTracker.ViewModel.UpdateFoodViewModel;
 
@@ -35,12 +37,8 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
-            setTheme(R.style.DarkTheme);
-        } else {
-            setTheme(R.style.AppTheme);
-        }
-
+        int currentTheme = getCurrentThemeFromPreferences();
+        ThemeUtils.changeTheme(AddActivity.this,currentTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
@@ -64,6 +62,11 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             setAddListener(floatingActionButton);
         }
 
+    }
+
+    private int getCurrentThemeFromPreferences() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return pref.getInt("theme",0);
     }
 
     private void initComponents() {
