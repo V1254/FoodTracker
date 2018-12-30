@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="dark_style">
-        <attr name="backgroundColor" format="color"/>
-        <attr name="cardBackgroundColor" format="color"/>
-        <attr name="buttonColor" format="color"/>
-        <attr name="buttonTint" format="color"/>
-        <attr name="mainTextColor" format="color"/>
-        <attr name="otherTextColor" format="color"/>
+        <attr name="backgroundColor" format="color" />
+        <attr name="cardBackgroundColor" format="color" />
+        <attr name="buttonColor" format="color" />
+        <attr name="buttonTint" format="color" />
+        <attr name="calenderTheme" format="reference"/>
+        <attr name="spinnerPopUpColor" format="color"/>
+        <attr name="cardTextColor" format="color"/>
+        <attr name="cardExpiryColor" format="color"/>
+        <attr name="textInputColor" format="color"/>
+        <attr name="categoryTextColor" format="color"/>
     </declare-styleable>
 
 </resources>
