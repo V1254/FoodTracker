@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,6 +35,12 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
@@ -41,8 +48,8 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         initComponents();
 
 
-        ArrayAdapter<CharSequence> spinAdapter = ArrayAdapter.createFromResource(this, R.array.categories, android.R.layout.simple_spinner_item);
-        spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> spinAdapter = ArrayAdapter.createFromResource(this, R.array.categories, R.layout.spinner);
+        spinAdapter.setDropDownViewResource(R.layout.spinner);
         spinner.setAdapter(spinAdapter);
         spinner.setOnItemSelectedListener(this);
 
@@ -56,6 +63,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             // use addViewModel to save
             setAddListener(floatingActionButton);
         }
+
     }
 
     private void initComponents() {

@@ -32,10 +32,10 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/light_Text"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_marginBottom="8dp"
-                android:fontFamily="@font/roboto_mono_medium"
                 android:gravity="center"
                 android:text="@string/light"
                 android:textColor="@color/cardview_dark_background"
@@ -77,13 +77,13 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/dark_Text"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_marginBottom="8dp"
-                android:fontFamily="@font/roboto_mono_medium"
                 android:gravity="center"
                 android:text="@string/dark"
-                android:textColor="@color/cardview_light_background"
+                android:textColor="@color/black"
                 android:textSize="24sp"
                 android:typeface="sans" />
 
