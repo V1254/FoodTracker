@@ -4,10 +4,17 @@
     <color name="colorPrimaryDark">#1976D2</color>
     <color name="colorAccent">#ff4081</color>
     <color name="white">#ffffff</color>
-    <color name="amber">#FF7E00</color>
-    <color name="light_red">#FF8A80</color>
+
+    <!--Light mode colors for the cards -->
+    <color name="light_mode_red">#FF0000</color>
+    <color name="light_mode_amber">#FF7E00</color>
+    <color name="light_mode_green">#25FF01</color>
+    <!-- Dark mode colors for the cards -->
+    <color name="dark_mode_Red">#FF8A80</color>
+    <color name="dark_mode_Amber">#FFD180</color>
+    <color name="dark_mode_Green">#00E676</color>
+
     <color name="orange">#ff9800</color>
-    <color name="light_green">#00e676</color>
     <color name="dark_grey">#212121</color>
     <color name="light_grey">#808080</color>
     <color name="black">#000000</color>
