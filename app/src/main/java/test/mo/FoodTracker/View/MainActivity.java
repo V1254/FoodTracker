@@ -4,12 +4,13 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -28,6 +29,7 @@ import test.mo.FoodTracker.Adapter;
 import test.mo.FoodTracker.DateConverter;
 import test.mo.FoodTracker.Model.Food;
 import test.mo.FoodTracker.R;
+import test.mo.FoodTracker.ThemeUtils;
 import test.mo.FoodTracker.ViewModel.DeleteViewModel;
 import test.mo.FoodTracker.ViewModel.FoodListViewModel;
 
@@ -43,13 +45,14 @@ public class MainActivity extends AppCompatActivity {
     // size of the cards with the margin added (120 + 8)
      private final int cardWidth = 128;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
-            setTheme(R.style.DarkTheme);
-        } else {
-            setTheme(R.style.AppTheme);
-        }
+        // theme setting
+        int currentTheme = getCurrentThemeFromPreferences();
+        ThemeUtils.changeTheme(MainActivity.this,currentTheme);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -79,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
 
         // swipe to delete function on recyclerview
         setDeleteListener(recyclerView);
+    }
+
+    private int getCurrentThemeFromPreferences() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return pref.getInt("theme",0);
     }
 
     private void setListener(ViewTreeObserver observer) {
