@@ -7,7 +7,6 @@
         <attr name="buttonTint" format="color"/>
         <attr name="mainTextColor" format="color"/>
         <attr name="otherTextColor" format="color"/>
-
     </declare-styleable>
 
 </resources>

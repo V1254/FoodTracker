@@ -5,4 +5,11 @@
     <color name="colorAccent">#ff4081</color>
     <color name="tint">#ffffff</color>
     <color name="amber">#FF7E00</color>
+    <color name="light_red">#FF8A80</color>
+    <color name="orange">#ff9800</color>
+    <color name="light_green">#00e676</color>
+    <color name="dark_grey">#212121</color>
+    <color name="light_grey">#616161</color>
+    <color name="black">#000000</color>
+    <color name="grey">#fafafa</color>
 </resources>
