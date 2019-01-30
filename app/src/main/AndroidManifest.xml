@@ -26,6 +26,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="test.mo.FoodTracker.View.MainActivity" />
         </activity>
+        <receiver android:name=".ExpiryPublisher"/>
     </application>
 
 </manifest>
