@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 import test.mo.FoodTracker.Model.Food;
+import test.mo.FoodTracker.NotificationManager;
 import test.mo.FoodTracker.R;
 import test.mo.FoodTracker.ThemeUtils;
 import test.mo.FoodTracker.ViewModel.AddFoodViewModel;
@@ -34,6 +35,8 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     Long todaysDate;
     String category;
     Toast toast;
+
+    NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +81,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         spinner = findViewById(R.id.spinner);
         addFoodViewModel = ViewModelProviders.of(this).get(AddFoodViewModel.class);
         updateFoodViewModel = ViewModelProviders.of(this).get(UpdateFoodViewModel.class);
+        notificationManager = new NotificationManager(getApplicationContext(),"foodtracker-id");
     }
 
 
@@ -89,12 +93,10 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                 if (isNullEditText()) {
                     showMissingNameToast();
                 } else {
-                    addFoodViewModel.addFood(new Food(
-                            editText.getText().toString(),
-                            todaysDate,
-                            getLongFromPicker(),
-                            category
-                    ));
+                    Food f = new Food(editText.getText().toString(),todaysDate,getLongFromPicker(),category);
+
+                    addFoodViewModel.addFood(f);
+                    notificationManager.scheduleNotification(f);
                     finish();
                 }
             }
