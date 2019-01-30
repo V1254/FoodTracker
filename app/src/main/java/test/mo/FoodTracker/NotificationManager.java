@@ -9,9 +9,6 @@ import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
-
-import java.util.Date;
 
 import test.mo.FoodTracker.Model.Food;
 
@@ -41,17 +38,6 @@ public class NotificationManager {
         PendingIntent pend = PendingIntent.getBroadcast(c, uniqueId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         // one day before the expiration date
         long timeInFuture = food.getExpiryDate() - 86400000;
-
-        Log.d(TAG, "scheduleNotification: Time being passed: " + timeInFuture);
-
-
-        Date d2 = new Date(food.getExpiryDate());
-        Date d = new Date(timeInFuture);
-        Date d3 = new Date(SystemClock.elapsedRealtime());
-
-        Log.d(TAG, "scheduleNotification: date " + d.toString());
-        Log.d(TAG, "scheduleNotification: expiration date  " + d2.toString());
-        Log.d(TAG, "scheduleNotification: android time  " + d3.toString());
         AlarmManager manager = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
         manager.set(AlarmManager.RTC, timeInFuture, pend);
     }
