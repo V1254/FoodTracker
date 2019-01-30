@@ -56,7 +56,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         holder.expiration_Date.setText(toDisplay);
 
         String category = foods.get(holder.getAdapterPosition()).getCategory();
-        holder.categoryImage.setImageResource(getDrawable(category));
+        holder.categoryImage.setImageResource(DrawableManager.getDrawable(category));
 
         Map<String, Integer> colors = generateColors();
 
@@ -115,18 +115,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         this.foods = foodList;
         notifyDataSetChanged();
     }
-
-    private int getDrawable(String category){
-        switch (category){
-            case "Fruit & Veg": return R.drawable.veg;
-            case "Meats": return R.drawable.meat;
-            case "Dairy": return R.drawable.dairy;
-            case "Grains": return R.drawable.grain;
-            case "Oils": return R.drawable.oil;
-            default:return R.drawable.other;
-        }
-    }
-
 
 
     // non static to allow access to enclosing fields/methods
