@@ -19,6 +19,8 @@
     <string name="light">Light</string>
     <string name="title_activity_theme_select">Select a Theme</string>
     <string name="category">Category:</string>
+    <string name="channel_name">Food Tracker Reminder</string>
+    <string name="channel_description">Expiry date Reminder</string>
 
     <string-array name="categories">
         <item>Fruit &amp; Veg</item>
